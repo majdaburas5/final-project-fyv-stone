@@ -5,8 +5,8 @@ const managerSchema = new Schema({
   id: Number,
   name: String,
   phone: String,
-  password: String,
   email: String,
+  password: String,
 });
 
 const Manager = mongoose.model("Manager", managerSchema);

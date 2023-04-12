@@ -16,24 +16,47 @@ const Marble = require("../models/marbleModel");
 // });
 
 // router.post("/addTransaction", function (req, res) {
-//   const amount = req.body.newTransaction.amount;
-//   const category = req.body.newTransaction.category;
-//   const vendor = req.body.newTransaction.vendor;
-//   const date = new Date();
-//   const day = date.getDate();
-//   const month = date.getMonth() + 1;
-//   const year = date.getFullYear();
-//   const formattedDate = `${day}-${month}-${year}`;
+//     const amount = req.body.newTransaction.amount;
+//     const category = req.body.newTransaction.category;
+//     const vendor = req.body.newTransaction.vendor;
+//     const date = new Date();
+//     const day = date.getDate();
+//     const month = date.getMonth() + 1;
+//     const year = date.getFullYear();
+//     const formattedDate = `${day}-${month}-${year}`;
 
-//   let t1 = new Transaction({
-//     amount: amount,
-//     category: category,
-//     vendor: vendor,
-//     date: formattedDate,
-//     month: month,
+//     let t1 = new Transaction({
+//       amount: amount,
+//       category: category,
+//       vendor: vendor,
+//       date: formattedDate,
+//       month: month,
+//     });
+//     t1.save();
 //   });
-//   t1.save();
-// });
+
+router.post("/addMarble", function (req, res) {
+  const code = req.body.code;
+  const type = req.body.type;
+  const price = req.body.price;
+  const quantity = req.body.quantity;
+  const style = req.body.style;
+  const name = req.body.name;
+  const img = req.body.img;
+  const color = req.body.color;
+
+  let m1 = new Marble({
+    code: code,
+    type: type,
+    price: price,
+    quantity: quantity,
+    style: style,
+    name: name,
+    img: img,
+    color: color,
+  });
+  m1.save();
+});
 
 // router.delete("/deleteTransaction/:transaction", function (req, res) {
 //   let transaction = req.params.transaction;
