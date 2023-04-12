@@ -20,7 +20,7 @@ export default function Products({ marbles }) {
                 class="fa-solid fa-tag fa-rotate-90 fa"
                 style={{ color: "black" }}
               ></i>{" "}
-              {m.price}
+              {m.price} ₪
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
               <i class="fa-light fa-bars fa" style={{ color: "black" }}></i>{" "}

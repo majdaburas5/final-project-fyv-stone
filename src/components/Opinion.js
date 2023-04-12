@@ -100,6 +100,7 @@ export default function CustomizedSlider({
 
   return (
     <div className="sliders">
+      <h1>GIVE YOUR OPINION</h1>
       <table>
         <tr>
           <th>
