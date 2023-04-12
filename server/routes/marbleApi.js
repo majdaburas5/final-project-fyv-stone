@@ -8,12 +8,12 @@ router.get("/getMarbles", function (req, res) {
   });
 });
 
-// router.get("/showTransactionByMonth/:month", function (req, res) {
-//   let month = req.params.month;
-//   Transaction.find({ month: month }).then((transactionByMonth) => {
-//     res.send(transactionByMonth);
-//   });
-// });
+router.get("/showMarbleByColor/:color", function (req, res) {
+  let color = req.params.color;
+  Marble.find({ color: color }).then((marbleByColor) => {
+    res.send(marbleByColor);
+  });
+});
 
 router.post("/addMarble", function (req, res) {
   const code = req.body.code;

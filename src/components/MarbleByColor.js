@@ -1,14 +1,14 @@
 import React from "react";
 import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import "../css/Products.css";
 
-export default function Products({ marbles }) {
+export default function MarbleByColor({ marblesByColor }) {
   return (
     <div className="cardContainer">
-      {marbles.map((m, index) => (
+      {marblesByColor.map((m, index) => (
         <Card sx={{ maxWidth: 345 }} className="card" key={index}>
           <CardMedia sx={{ height: 200 }} image={m.img} title={m.name} />
           <CardContent className="font">

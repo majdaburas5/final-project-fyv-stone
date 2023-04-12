@@ -9,11 +9,14 @@ import Products from "./components/Products";
 import Cart from "./components/Cart";
 import Contact from "./components/Contact";
 import About from "./components/About";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+import $ from "jquery";
 
 function App() {
   const URL = "http://localhost:3001";
   const [marbles, setMarbles] = useState([]);
-  // const [transactionsByMonth, setTransactionsByMonth] = useState([]);
+  const [marblesByColor, setMarblesByColor] = useState([]);
 
   function MarblesFromDB() {
     axios
@@ -31,6 +34,19 @@ function App() {
 
   function addMarble(newMarble) {
     axios.post(`${URL}/addMarble`, { newMarble });
+  }
+
+  function showMarbleByColor(color) {
+    $.ajax({
+      url: `${URL}/showMarbleByColor/${color}`,
+      type: "GET",
+      success: (data) => {
+        setMarblesByColor(data);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   // function ShowTransactionByMonth(month) {
@@ -76,12 +92,20 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products marbles={marbles} />} />
-          <Route path="/opinion" element={<Opinion />} />
+          <Route
+            path="/opinion"
+            element={
+              <Opinion
+                showMarbleByColor={showMarbleByColor}
+                marblesByColor={marblesByColor}
+              />
+            }
+          />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<About />} />
-          <Route path="/sign-up" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </div>
     </Router>
