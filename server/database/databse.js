@@ -1,4 +1,4 @@
-export const marbles = [
+const marbles = [
   {
     code: 3671,
     type: "porcelain",
@@ -220,3 +220,4 @@ export const marbles = [
     color: 4,
   },
 ];
+export default marbles;

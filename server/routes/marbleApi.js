@@ -1,21 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Marble = require("../models/marbleModel");
-import marbles from "../database/databse";
-
-marbles.map((m) => {
-  let m1 = {
-    code: m.code,
-    type: m.type,
-    price: m.price,
-    quantity: m.quantity,
-    style: m.style,
-    name: m.name,
-    img: m.img,
-    color: m.color,
-  };
-  m1.save();
-});
 
 router.get("/getMarbles", function (req, res) {
   Marble.find({}).then((marble) => {
