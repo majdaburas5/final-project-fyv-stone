@@ -12,6 +12,7 @@ import About from "./components/About";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import $ from "jquery";
+import Footer from "./components/Footer";
 
 function App() {
   const URL = "http://localhost:3001";
@@ -108,6 +109,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }

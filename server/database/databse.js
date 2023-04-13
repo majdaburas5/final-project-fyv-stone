@@ -220,4 +220,5 @@ const marbles = [
     color: 4,
   },
 ];
-export default marbles;
+
+console.log(marbles);
