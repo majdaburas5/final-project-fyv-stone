@@ -1,15 +1,20 @@
 const express = require("express");
 const app = express();
+var cors = require("cors");
 const marbleApi = require("./server/routes/marbleApi");
 const path = require("path");
 const port = 3001;
-
 const mongoose = require("mongoose");
-
+const mongo_atlas =
+  "mongodb+srv://salemgode:vlCKJ94Xqwra4p9n@cluster0.vv6m4tp.mongodb.net/?retryWrites=true&w=majority";
+const marbleDB = "mongodb://127.0.0.1:27017/marbleDB";
 mongoose
-  .connect("mongodb://127.0.0.1:27017/marbleDB", {
-    useNewUrlParser: true,
-  })
+  .connect(
+    "mongodb+srv://salemgode:vlCKJ94Xqwra4p9n@cluster0.vv6m4tp.mongodb.net/?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+    }
+  )
   .then(() => console.log("conneted to DB"))
   .catch((err) => console.log(err));
 
@@ -20,9 +25,9 @@ app.use(function (req, res, next) {
     "Access-Control-Allow-Headers",
     "Content-Type, Authorization, Content-Length, X-Requested-With"
   );
-
   next();
 });
+app.use(cors());
 app.use(express.static(path.join(__dirname, "node_modules")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
