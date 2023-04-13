@@ -5,16 +5,13 @@ const marbleApi = require("./server/routes/marbleApi");
 const path = require("path");
 const port = 3001;
 const mongoose = require("mongoose");
-const mongo_atlas =
-  "mongodb+srv://salemgode:vlCKJ94Xqwra4p9n@cluster0.vv6m4tp.mongodb.net/?retryWrites=true&w=majority";
 const marbleDB = "mongodb://127.0.0.1:27017/marbleDB";
+const atlas_database =
+  "mongodb+srv://salemgode:vlCKJ94Xqwra4p9n@cluster0.vv6m4tp.mongodb.net/?retryWrites=true&w=majority";
 mongoose
-  .connect(
-    "mongodb+srv://salemgode:vlCKJ94Xqwra4p9n@cluster0.vv6m4tp.mongodb.net/?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-    }
-  )
+  .connect(atlas_database ? atlas_database : marbleDB, {
+    useNewUrlParser: true,
+  })
   .then(() => console.log("conneted to DB"))
   .catch((err) => console.log(err));
 
