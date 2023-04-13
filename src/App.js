@@ -16,39 +16,6 @@ import Footer from "./components/Footer";
 
 function App() {
   const URL = "http://localhost:3001";
-  const [marbles, setMarbles] = useState([]);
-  const [marblesByColor, setMarblesByColor] = useState([]);
-
-  function MarblesFromDB() {
-    axios
-      .get(`${URL}/getMarbles`)
-      .then((res) => setMarbles(res.data))
-      .catch((err) => console.log(err));
-  }
-  useEffect(() => {
-    MarblesFromDB();
-  }, [marbles]);
-
-  function deleteMarble(id) {
-    axios.delete(`${URL}/deleteMarble/${id}`);
-  }
-
-  function addMarble(newMarble) {
-    axios.post(`${URL}/addMarble`, { newMarble });
-  }
-
-  function showMarbleByColor(color) {
-    $.ajax({
-      url: `${URL}/showMarbleByColor/${color}`,
-      type: "GET",
-      success: (data) => {
-        setMarblesByColor(data);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
 
   // function ShowTransactionByMonth(month) {
   //   axios
@@ -84,7 +51,6 @@ function App() {
   // const balanceAmount = balance().then((result) => {
   //   return result.data[0].total_amount;
   // });
-
   return (
     <Router>
       <div className="App">
@@ -92,24 +58,16 @@ function App() {
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products marbles={marbles} />} />
-          <Route
-            path="/opinion"
-            element={
-              <Opinion
-                showMarbleByColor={showMarbleByColor}
-                marblesByColor={marblesByColor}
-              />
-            }
-          />
+          <Route path="/products" element={<Products />} />
+          <Route path="/opinion" element={<Opinion />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Routes>
+        <Footer />
       </div>
-      <Footer />
     </Router>
   );
 }

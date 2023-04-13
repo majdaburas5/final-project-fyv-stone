@@ -5,6 +5,8 @@ const managerSchema = new Schema({
   id: Number,
   name: String,
   phone: String,
+  city: String,
+  pic: String,
   email: String,
   password: String,
 });
