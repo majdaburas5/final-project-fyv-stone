@@ -5,9 +5,8 @@ const path = require("path");
 const port = 3001;
 
 const mongoose = require("mongoose");
-
 mongoose
-  .connect("mongodb://127.0.0.1:27017/marbleDB", {
+  .connect("mongodb+srv://salemgode:vlCKJ94Xqwra4p9n@cluster0.vv6m4tp.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
   })
   .then(() => console.log("conneted to DB"))
@@ -23,6 +22,7 @@ app.use(function (req, res, next) {
 
   next();
 });
+
 app.use(express.static(path.join(__dirname, "node_modules")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
