@@ -17,14 +17,24 @@ export default function Contact() {
     <div>
       {managers.map((m) => (
         <div>
-          <Avatar
-            alt="Remy Sharp"
-            src={m.pic}
-            sx={{ width: 200, height: 200 }}
-          />
-          <h3>{m.name}</h3>
-          <h3>{m.phone}</h3>
-          <i class="fa-light fa-city"></i> <h3>{m.city}</h3>
+          <Stack direction="row" spacing={2}>
+            <Avatar
+              alt="Remy Sharp"
+              src={m.pic}
+              sx={{ width: 200, height: 200 }}
+            />
+            <div>
+              <h3>{m.name}</h3>
+            </div>
+            <div>
+              <i class="fa-sharp fa-solid fa-phone-volume"></i>{" "}
+              <h3>{m.phone}</h3>
+            </div>
+            <div>
+              <i class="fa-sharp fa-light fa-buildings"></i> <h3>{m.city}</h3>
+            </div>
+          </Stack>
+          <br />
         </div>
       ))}
     </div>

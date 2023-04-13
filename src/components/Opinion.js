@@ -1,5 +1,5 @@
 import * as React from "react";
-import Slider, { SliderThumb } from "@mui/material/Slider";
+import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
