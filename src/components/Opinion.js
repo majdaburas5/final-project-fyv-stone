@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import MarbleByColor from "./MarbleByColor";
+import { showMarbleByColor } from "../api";
 
 const PrettoSlider = styled(Slider)({
   color: "black",
@@ -53,49 +54,74 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
-export default function CustomizedSlider({
-  showMarbleByColor,
-  marblesByColor,
-}) {
+const ColorsRadio = () => {
+  const colorsMap = [
+    {
+      label: "grey",
+      value: 1,
+    },
+    {
+      label: "beige",
+      value: 2,
+    },
+    {
+      label: "blue",
+      value: 3,
+    },
+    {
+      label: "white",
+      value: 4,
+    },
+    {
+      label: "brown",
+      value: 5,
+    },
+    {
+      label: "black",
+      value: 6,
+    },
+  ];
+  return colorsMap.map((color) => {
+    return (
+      <FormControlLabel
+        value={color.value}
+        control={<Radio />}
+        label={color.label}
+        key={color.value}
+      />
+    );
+  });
+};
+
+export default function CustomizedSlider() {
+  const [marblesByColor, setMarblesByColor] = useState([]);
   const [wallSliderValue, setWallSliderValue] = useState(20);
-  const handleWallSliderChange = (event, newValue) => {
-    setWallSliderValue(newValue);
-  };
   const [closetSliderValue, setClosetSliderValue] = useState(20);
-  const handleClosetSliderChange = (event, newValue) => {
-    setClosetSliderValue(newValue);
-  };
   const [floorSliderValue, setFloorSliderValue] = useState(20);
-  const handleFloorSliderChange = (event, newValue) => {
-    setFloorSliderValue(newValue);
-  };
   const [wallColorValue, setWallColor] = useState(0);
-  const handleWallColorChange = (event, newValue) => {
-    setWallColor(newValue);
-  };
   const [closetColorValue, setClosetColor] = useState(0);
-  const handleClosetColorChange = (event, newValue) => {
-    setClosetColor(newValue);
-  };
   const [floorColorValue, setFloorColor] = useState(0);
-  const handleFloorColorChange = (event, newValue) => {
-    setFloorColor(newValue);
-  };
 
-  const wallPercent = wallSliderValue / 100;
-  const closetPercent = closetSliderValue / 100;
-  const floorPercent = floorSliderValue / 100;
-  const wallColor = wallColorValue;
-  const closetColor = closetColorValue;
-  const floorColor = floorColorValue;
-  const sumPercents = wallPercent + closetPercent + floorPercent;
+  const handleClick = async () => {
+    const wallPercent = wallSliderValue / 100;
+    const closetPercent = closetSliderValue / 100;
+    const floorPercent = floorSliderValue / 100;
+    const wallColor = wallColorValue;
+    const closetColor = closetColorValue;
+    const floorColor = floorColorValue;
+    const sumPercents = wallPercent + closetPercent + floorPercent;
 
-  const handleClick = function () {
     const wallResult = wallPercent * wallColor;
     const closetResult = closetPercent * closetColor;
     const floorResult = floorPercent * floorColor;
     const matchResult = wallResult + closetResult + floorResult;
-    return Math.round(matchResult);
+    const marbles = await showMarbleByColor(Math.round(matchResult));
+    if (sumPercents === 1) {
+      setMarblesByColor(marbles);
+    } else {
+      alert("you must choose 100 % ");
+      setMarblesByColor([]);
+    }
   };
 
   return (
@@ -110,7 +136,7 @@ export default function CustomizedSlider({
               </Typography>
               <PrettoSlider
                 value={wallSliderValue}
-                onChange={handleWallSliderChange}
+                onChange={(event) => setWallSliderValue(event.target.value)}
                 valueLabelDisplay="auto"
                 aria-label="pretto slider"
                 defaultValue={20}
@@ -124,38 +150,9 @@ export default function CustomizedSlider({
                   row
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="row-radio-buttons-group"
-                  onChange={handleWallColorChange}
+                  onChange={(event) => setWallColor(event.target.value)}
                 >
-                  <FormControlLabel
-                    value="1"
-                    control={<Radio />}
-                    label="Grey"
-                  />
-                  <FormControlLabel
-                    value="2"
-                    control={<Radio />}
-                    label="Beige"
-                  />
-                  <FormControlLabel
-                    value="3"
-                    control={<Radio />}
-                    label="Blue"
-                  />
-                  <FormControlLabel
-                    value="4"
-                    control={<Radio />}
-                    label="White"
-                  />
-                  <FormControlLabel
-                    value="5"
-                    control={<Radio />}
-                    label="Brown"
-                  />
-                  <FormControlLabel
-                    value="6"
-                    control={<Radio />}
-                    label="Black"
-                  />
+                  <ColorsRadio />
                 </RadioGroup>
               </FormControl>
             </td>
@@ -169,7 +166,7 @@ export default function CustomizedSlider({
               </Typography>
               <PrettoSlider
                 value={closetSliderValue}
-                onChange={handleClosetSliderChange}
+                onChange={(event) => setClosetSliderValue(event.target.value)}
                 valueLabelDisplay="auto"
                 aria-label="pretto slider"
                 defaultValue={20}
@@ -183,14 +180,9 @@ export default function CustomizedSlider({
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
-                onChange={handleClosetColorChange}
+                onChange={(event) => setClosetColor(event.target.value)}
               >
-                <FormControlLabel value="1" control={<Radio />} label="Grey" />
-                <FormControlLabel value="2" control={<Radio />} label="Beige" />
-                <FormControlLabel value="3" control={<Radio />} label="Blue" />
-                <FormControlLabel value="4" control={<Radio />} label="White" />
-                <FormControlLabel value="5" control={<Radio />} label="Brown" />
-                <FormControlLabel value="6" control={<Radio />} label="Black" />
+                <ColorsRadio />
               </RadioGroup>
             </FormControl>
           </tr>
@@ -203,7 +195,7 @@ export default function CustomizedSlider({
               </Typography>
               <PrettoSlider
                 value={floorSliderValue}
-                onChange={handleFloorSliderChange}
+                onChange={(event) => setFloorSliderValue(event.target.value)}
                 valueLabelDisplay="auto"
                 aria-label="pretto slider"
                 defaultValue={20}
@@ -217,14 +209,9 @@ export default function CustomizedSlider({
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
-                onChange={handleFloorColorChange}
+                onChange={(event) => setFloorColor(event.target.value)}
               >
-                <FormControlLabel value="1" control={<Radio />} label="Grey" />
-                <FormControlLabel value="2" control={<Radio />} label="Beige" />
-                <FormControlLabel value="3" control={<Radio />} label="Blue" />
-                <FormControlLabel value="4" control={<Radio />} label="White" />
-                <FormControlLabel value="5" control={<Radio />} label="Brown" />
-                <FormControlLabel value="6" control={<Radio />} label="Black" />
+                <ColorsRadio />
               </RadioGroup>
             </FormControl>
           </tr>
@@ -234,7 +221,7 @@ export default function CustomizedSlider({
         <Button
           variant="contained"
           endIcon={<SendIcon />}
-          onClick={() => showMarbleByColor(handleClick())}
+          onClick={async () => handleClick()}
         >
           Match
         </Button>
