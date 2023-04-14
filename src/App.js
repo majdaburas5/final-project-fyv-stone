@@ -11,6 +11,7 @@ import About from "./components/About";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
+import Marbles from "./components/Marbles";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/marbles" element={<Marbles />} />
         </Routes>
         <Footer />
       </div>
