@@ -16,7 +16,6 @@ router.get("/showMarbleByColor/:color", function (req, res) {
 });
 
 router.post("/addMarble", function (req, res) {
-  
   const code = req.body.code;
   const type = req.body.type;
   const price = req.body.price;
@@ -37,6 +36,13 @@ router.post("/addMarble", function (req, res) {
     color: color,
   });
   m1.save();
+});
+
+router.get("/marble/:id", function (req, res) {
+  let id = req.params.id;
+  Marble.find({ _id: id }).then((marbleById) => {
+    res.send(marbleById);
+  });
 });
 
 router.delete("/deleteMarble/:id", function (req, res) {
