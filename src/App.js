@@ -12,6 +12,7 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
+import Visa from "./components/Visa";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/marbles" element={<Marbles />} />
+          <Route path="/payment" element={<Visa />} />
         </Routes>
         <Footer />
       </div>
