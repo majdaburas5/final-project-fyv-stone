@@ -40,6 +40,8 @@ export default function Marbles() {
       if (cartArray.find((item) => item.marble[0].name === marble.name))
         alert("Item has already been added to cart !");
       else if (quantity <= 0) alert("There is no quantity added !");
+      else if (marble.quantity < quantity)
+        alert("we dont have the required quantity we will order it for you !");
       else {
         setCartArray([...cartArray, { marble: res, quantity: quantity }]);
         alert("Item added !");
@@ -47,7 +49,7 @@ export default function Marbles() {
     });
     return cartArray;
   };
-
+  console.log(cartArray);
   const MarbleImageModal = ({ imgUrl, onClose }) => {
     return (
       <div className="marble-image-modal">
@@ -125,14 +127,18 @@ export default function Marbles() {
               <button
                 type="submit"
                 class="btn btn-dark"
-                onClick={() => cart(m._id, quantity)}
+                onClick={() => {
+                  cart(m._id, quantity);
+                }}
               >
                 Add To Cart
               </button>
             </Card>
           );
         })}
-      {/* <Cart cartArray={cartArray} setCartArray={setCartArray} /> */}
+      <div>
+        <Cart cartArray={cartArray} setCartArray={setCartArray} />
+      </div>
     </div>
   );
 }
