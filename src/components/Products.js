@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 
 export default function Products() {
   const [marbles, setMarbles] = useState([]);
+  const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
 
   useEffect(() => {
     MarblesFromDB().then((res) => {
@@ -16,12 +17,36 @@ export default function Products() {
     });
   }, []);
 
+  const MarbleImageModal = ({ imgUrl, onClose }) => {
+    return (
+      <div className="marble-image-modal">
+        <div className="modal-content">
+          <img src={imgUrl} />
+          <button className="close-btn" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="cardContainer">
       {marbles &&
         marbles.map((m, index) => (
           <Card sx={{ maxWidth: 345 }} className="card" key={index}>
-            <CardMedia sx={{ height: 200 }} image={m.img} title={m.name} />
+            <CardMedia
+              sx={{ height: 200 }}
+              image={m.img}
+              title={m.name}
+              onClick={() => setSelectedMarbleImg(m.img)}
+            />
+            {selectedMarbleImg && (
+              <MarbleImageModal
+                imgUrl={selectedMarbleImg}
+                onClose={() => setSelectedMarbleImg("")}
+              />
+            )}
             <CardContent className="font">
               <Typography gutterBottom variant="h5" component="div">
                 {m.name}
