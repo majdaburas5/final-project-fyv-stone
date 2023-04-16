@@ -40,9 +40,10 @@ export default function Marbles() {
       if (cartArray.find((item) => item.marble[0].name === marble.name))
         alert("Item has already been added to cart !");
       else if (quantity <= 0) alert("There is no quantity added !");
-      else if (marble.quantity < quantity)
-        alert("we dont have the required quantity we will order it for you !");
-      else {
+      else if (marble.quantity < quantity) {
+        alert("We dont have the required quantity we will order it for you !");
+        setCartArray([...cartArray, { marble: res, quantity: quantity }]);
+      } else {
         setCartArray([...cartArray, { marble: res, quantity: quantity }]);
         alert("Item added !");
       }
@@ -136,9 +137,7 @@ export default function Marbles() {
             </Card>
           );
         })}
-      <div>
-        <Cart cartArray={cartArray} setCartArray={setCartArray} />
-      </div>
+      <Cart cartArray={cartArray} setCartArray={setCartArray} />
     </div>
   );
 }

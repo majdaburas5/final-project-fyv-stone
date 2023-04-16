@@ -1,0 +1,21 @@
+.about-us-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.about-us-title {
+  font-size: 40px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about-us-description {
+  font-size: 18px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Update the styles based on your preferred color scheme and branding */
