@@ -6,11 +6,15 @@ export default function Visa({ sumPrice }) {
     console.log(data);
     alert("Thanks for buying from us !");
   };
-
   return (
     <div className="App">
-      <em>The total amount to pay {sumPrice} $</em>
-      <VisaCard onSubmit={pay} />
+      <VisaCard
+        onSubmit={pay}
+        frontCardColor="linear-gradient(50deg, #f3c680, hsla(179,54%,76%,1))"
+        backCardColor="wheat"
+        submitBtnColor="wheat"
+        submitBtnTxt={`Total amount ${sumPrice}`}
+      />
     </div>
   );
 }

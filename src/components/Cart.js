@@ -15,12 +15,10 @@ export default function Cart({ cartArray, setCartArray }) {
   //     setMarbles(res);
   //   });
   // }, []);
-  // addItemToCartcart
-  // console.log(cartArray);
+  console.log(cartArray);
 
   const handleDelete = (id) => {
-    // problem to fix
-    const index = cartArray.findIndex((cart) => cart._id === id);
+    const index = cartArray.findIndex((cart) => cart.marble[0]._id === id);
 
     const updatedCartArray = [...cartArray];
     updatedCartArray.splice(index, 1);
@@ -32,7 +30,9 @@ export default function Cart({ cartArray, setCartArray }) {
     let total = 0;
     if (cartArray && cartArray.length > 0) {
       cartArray.forEach((cart) => {
-        total += cart.marble[0].price * cart.quantity;
+        if (cart.marble[0] && cart.marble[0].price && cart.quantity) {
+          total += cart.marble[0].price * cart.quantity;
+        }
       });
     }
     setSumPrice(total);
@@ -51,7 +51,7 @@ export default function Cart({ cartArray, setCartArray }) {
         </tr>
         {cartArray &&
           cartArray.map((cart) => (
-            <tr key={cart._id}>
+            <tr key={cart.marble[0]._id}>
               <td>{cart.marble[0].name}</td>
               <td>{cart.quantity}</td>
               <td>{cart.marble[0].price * cart.quantity} $</td>
