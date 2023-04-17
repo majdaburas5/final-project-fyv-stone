@@ -1,16 +1,15 @@
 import axios from "axios";
 const URL = "http://localhost:3001";
 
-
-
 export async function MarblesFromDB() {
   const response = await axios.get(`${URL}/getMarbles`);
   return response.data;
 }
 
-export async function addItemToCart(marble) {
+export async function addItemToCart(marble, customerId) {
   await axios.post(`${URL}/addToCart`, {
     marble,
+    customerId,
   });
 }
 
@@ -39,13 +38,13 @@ export async function showMarbleByColor(color) {
 
 export async function registerCustomerUser(newCustomer) {
   console.log(newCustomer);
-  await axios.post(`${URL}/customerUser`, newCustomer );
+  await axios.post(`${URL}/customerUser`, newCustomer);
 }
 
 export async function loginUser(user) {
-  await axios.post(`${URL}/login`, user );
+  await axios.post(`${URL}/login`, user);
 }
 
 export async function getCustomers(user) {
-  return await axios.get(`${URL}/customers`, user );
+  return await axios.get(`${URL}/customers`, user);
 }

@@ -2,21 +2,15 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../css/Cart.css";
-// import { marblesAddedToCart, addItemToCart } from "../api";
 import Visa from "./Visa";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
-export default function Cart({ cartArray, updateCartArray }) {
-  // const [marbles, setMarbles] = useState([]);
-  const [sumPrice, setSumPrice] = useState(0);
-
-  // useEffect(() => {
-  //   marblesAddedToCart().then((res) => {
-  //     setMarbles(res);
-  //   });
-  // }, []);
-  console.log(cartArray);
-
+export default function Cart({
+  cartArray,
+  updateCartArray,
+  sumPrice,
+  setSumPrice,
+}) {
   const handleDelete = (id) => {
     const index = cartArray.findIndex((cart) => cart.marble[0]._id === id);
 
@@ -37,7 +31,6 @@ export default function Cart({ cartArray, updateCartArray }) {
     }
     setSumPrice(total);
   }, [cartArray]);
-
   return (
     <div>
       <h1 className="cart-title">Cart</h1>
@@ -86,7 +79,7 @@ export default function Cart({ cartArray, updateCartArray }) {
       <Link to="/payment" className="payment">
         <button className="button button2">Buy</button>
       </Link>
-      {/* <Visa sumPrice={sumPrice} />; */}
+      {/* <Visa sumPrice={sumPrice} cartArray={cartArray} />; */}
     </div>
   );
 }
