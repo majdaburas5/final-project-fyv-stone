@@ -3,6 +3,7 @@ const app = express();
 var cors = require("cors");
 const marbleApi = require("./server/routes/marbleApi");
 const managerApi = require("./server/routes/managerApi");
+const customerApi = require("./server/routes/customerApi");
 const path = require("path");
 const port = 3001;
 const mongoose = require("mongoose");
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", marbleApi);
 app.use("/", managerApi);
+app.use("/", customerApi);
 
 app.listen(port, function () {
   console.log(`Running on port ${port}`);
