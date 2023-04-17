@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Marble = require("../models/marbleModel");
+const { findMarbleById } = require("../services/marbleService");
 
 router.get("/getMarbles", function (req, res) {
   Marble.find({}).then((marble) => {
@@ -40,8 +41,8 @@ router.post("/addMarble", function (req, res) {
 
 router.get("/marble/:id", function (req, res) {
   let id = req.params.id;
-  Marble.find({ _id: id }).then((marbleById) => {
-    res.send(marbleById);
+  Marble.find({ _id: id }).then((marble) => {
+    res.send(marble);
   });
 });
 

@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "../css/Products.css";
-import { MarblesFromDB } from "../api";
+import { marblesFromDB } from "../api";
 import { useState, useEffect } from "react";
 
 export default function Products() {
@@ -12,7 +12,7 @@ export default function Products() {
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
 
   useEffect(() => {
-    MarblesFromDB().then((res) => {
+    marblesFromDB().then((res) => {
       setMarbles(res);
     });
   }, []);

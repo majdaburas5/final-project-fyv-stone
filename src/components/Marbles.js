@@ -4,8 +4,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "../css/Products.css";
-import { MarblesFromDB } from "../api";
-import { addToCart } from "../components/AddToCart";
+import { marblesFromDB } from "../api";
+import { addToCart } from "../api";
 import TextField from "@mui/material/TextField";
 import Cart from "./Cart";
 import "../css/Marbles.css";
@@ -17,7 +17,7 @@ export default function Marbles({ updateCartArray, cartArray }) {
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
 
   useEffect(() => {
-    MarblesFromDB().then((res) => {
+    marblesFromDB().then((res) => {
       setMarbles(res);
     });
   }, []);

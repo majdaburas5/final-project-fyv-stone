@@ -55,7 +55,13 @@ function App() {
           />
           <Route
             path="/payment"
-            element={<Visa cartArray={cartArray} sumPrice={sumPrice} />}
+            element={
+              <Visa
+                cartArray={cartArray}
+                setCartArray={setCartArray}
+                sumPrice={sumPrice}
+              />
+            }
           />
         </Routes>
         <Footer />
