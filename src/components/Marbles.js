@@ -10,9 +10,9 @@ import TextField from "@mui/material/TextField";
 import Cart from "./Cart";
 import "../css/Marbles.css";
 
-export default function Marbles() {
+export default function Marbles({ updateCartArray, cartArray }) {
   const [marbles, setMarbles] = useState([]);
-  const [cartArray, setCartArray] = useState([]);
+  // const [cartArray, setCartArray] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
 
@@ -42,12 +42,13 @@ export default function Marbles() {
       else if (quantity <= 0) alert("There is no quantity added !");
       else if (marble.quantity < quantity) {
         alert("We dont have the required quantity we will order it for you !");
-        setCartArray([...cartArray, { marble: res, quantity: quantity }]);
+        updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
       } else {
-        setCartArray([...cartArray, { marble: res, quantity: quantity }]);
+        updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
         alert("Item added !");
       }
     });
+
     return cartArray;
   };
   console.log(cartArray);
@@ -137,7 +138,7 @@ export default function Marbles() {
             </Card>
           );
         })}
-      <Cart cartArray={cartArray} setCartArray={setCartArray} />
+      {/* <Cart cartArray={cartArray} setCartArray={setCartArray} /> */}
     </div>
   );
 }

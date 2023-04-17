@@ -6,7 +6,7 @@ import "../css/Cart.css";
 import Visa from "./Visa";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
-export default function Cart({ cartArray, setCartArray }) {
+export default function Cart({ cartArray, updateCartArray }) {
   // const [marbles, setMarbles] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
 
@@ -23,7 +23,7 @@ export default function Cart({ cartArray, setCartArray }) {
     const updatedCartArray = [...cartArray];
     updatedCartArray.splice(index, 1);
 
-    setCartArray(updatedCartArray);
+    updateCartArray(updatedCartArray);
   };
 
   useEffect(() => {

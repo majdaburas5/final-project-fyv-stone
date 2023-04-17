@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -14,8 +14,11 @@ import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
 
-
 function App() {
+  const [cartArray, setCartArray] = useState([]);
+  const updateCartArray = function (arr) {
+    setCartArray(arr);
+  };
   return (
     <Router>
       <div className="App">
@@ -25,12 +28,25 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/opinion" element={<Opinion />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/cart"
+            element={
+              <Cart cartArray={cartArray} updateCartArray={updateCartArray} />
+            }
+          />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/marbles" element={<Marbles />} />
+          <Route
+            path="/marbles"
+            element={
+              <Marbles
+                updateCartArray={updateCartArray}
+                cartArray={cartArray}
+              />
+            }
+          />
           <Route path="/payment" element={<Visa />} />
         </Routes>
         <Footer />
