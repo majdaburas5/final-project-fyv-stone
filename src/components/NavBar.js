@@ -47,6 +47,11 @@ export default function NavBar() {
                 Login
               </Link>
             </Nav.Link>
+            <Nav.Link>
+              <Link to="/signup" className="signup">
+                SignUp
+              </Link>
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>

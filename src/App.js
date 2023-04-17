@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
 
+
 function App() {
   return (
     <Router>
@@ -28,7 +29,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/marbles" element={<Marbles />} />
           <Route path="/payment" element={<Visa />} />
         </Routes>

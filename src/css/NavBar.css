@@ -19,3 +19,7 @@
 .login {
   color: white;
 }
+.signup {
+  text-align: right !important;
+  color: white;
+}
