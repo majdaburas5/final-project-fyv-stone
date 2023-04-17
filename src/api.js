@@ -1,16 +1,25 @@
 import axios from "axios";
 const URL = "http://localhost:3001";
 
-export async function MarblesFromDB() {
+export async function marblesFromDB() {
   const response = await axios.get(`${URL}/getMarbles`);
   return response.data;
 }
 
 export async function addItemToCart(marble, customerId) {
-  await axios.post(`${URL}/addToCart`, {
+  await axios.post(`${URL}/cart/addToCart`, {
     marble,
     customerId,
   });
+}
+
+export async function addToCart(id) {
+  const response = await axios.get(`${URL}/marble/${id}`);
+  return response.data;
+}
+
+export async function updateQuantity(id, updatedQuantity) {
+  await axios.put(`${URL}/marble/${id}`, { quantity: updatedQuantity });
 }
 
 export async function marblesAddedToCart() {

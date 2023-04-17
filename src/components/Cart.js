@@ -79,7 +79,6 @@ export default function Cart({
       <Link to="/payment" className="payment">
         <button className="button button2">Buy</button>
       </Link>
-      {/* <Visa sumPrice={sumPrice} cartArray={cartArray} />; */}
     </div>
   );
 }
