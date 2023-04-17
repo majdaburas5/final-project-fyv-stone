@@ -16,6 +16,7 @@ import Visa from "./components/Visa";
 
 function App() {
   const [cartArray, setCartArray] = useState([]);
+  const [sumPrice, setSumPrice] = useState(0);
   const updateCartArray = function (arr) {
     setCartArray(arr);
   };
@@ -31,7 +32,12 @@ function App() {
           <Route
             path="/cart"
             element={
-              <Cart cartArray={cartArray} updateCartArray={updateCartArray} />
+              <Cart
+                cartArray={cartArray}
+                updateCartArray={updateCartArray}
+                sumPrice={sumPrice}
+                setSumPrice={setSumPrice}
+              />
             }
           />
           <Route path="/contact" element={<Contact />} />
@@ -47,7 +53,10 @@ function App() {
               />
             }
           />
-          <Route path="/payment" element={<Visa />} />
+          <Route
+            path="/payment"
+            element={<Visa cartArray={cartArray} sumPrice={sumPrice} />}
+          />
         </Routes>
         <Footer />
       </div>
