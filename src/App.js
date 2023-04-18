@@ -16,6 +16,7 @@ import Visa from "./components/Visa";
 import ManagerPage from "./manager-components/ManagerPage";
 import Managment from "./manager-components/Managment";
 import EditMarble from "./manager-components/EditMarble";
+import AddNewMarble from "./manager-components/AddNewMarble";
 
 function App() {
   const [cartArray, setCartArray] = useState([]);
@@ -69,6 +70,7 @@ function App() {
           <Route path="/manager/home-page" element={<ManagerPage />} />
           <Route path="/managment" element={<Managment />} />
           <Route path="/edit/:marbleId" element={<EditMarble />} />
+          <Route path="/add-new-marble" element={<AddNewMarble />} />
         </Routes>
         <Footer />
       </div>
