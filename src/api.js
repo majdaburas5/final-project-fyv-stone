@@ -31,8 +31,26 @@ export async function deleteMarble(id) {
   await axios.delete(`${URL}/deleteMarble/${id}`);
 }
 
-export async function addMarble(newMarble) {
-  await axios.post(`${URL}/addMarble`, { newMarble });
+export async function addMarble(
+  codeValue,
+  typeValue,
+  priceValue,
+  quantityValue,
+  styleValue,
+  nameValue,
+  imgValue,
+  colorValue
+) {
+  await axios.post(`${URL}/addMarble`, {
+    code: codeValue,
+    type: typeValue,
+    price: priceValue,
+    quantity: quantityValue,
+    style: styleValue,
+    name: nameValue,
+    img: imgValue,
+    color: colorValue,
+  });
 }
 
 export async function ManagersFromDB() {
