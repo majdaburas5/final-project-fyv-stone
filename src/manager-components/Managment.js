@@ -3,16 +3,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import "../css/Products.css";
 import { marblesFromDB } from "../api";
-import { addToCart } from "../api";
-import TextField from "@mui/material/TextField";
-import "../css/Marbles.css";
+import { deleteMarble } from "../api";
+import "../manager-css/Managment.css";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
-export default function Marbles({ updateCartArray, cartArray }) {
+export default function Managment({ updateCartArray, cartArray }) {
   const [marbles, setMarbles] = useState([]);
-  // const [cartArray, setCartArray] = useState([]);
-  const [quantities, setQuantities] = useState([]);
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
 
   useEffect(() => {
@@ -21,36 +18,6 @@ export default function Marbles({ updateCartArray, cartArray }) {
     });
   }, []);
 
-  const handleQuantityChange = (id, value) => {
-    setQuantities((prevQuantities) => {
-      const index = prevQuantities.findIndex((item) => item.id === id);
-      if (index !== -1) {
-        prevQuantities[index].quantity = value;
-      } else {
-        prevQuantities.push({ id, quantity: value });
-      }
-      return [...prevQuantities];
-    });
-  };
-
-  const cart = (id, quantity) => {
-    const marble = marbles.find((m) => m._id === id);
-    addToCart(id).then((res) => {
-      if (cartArray.find((item) => item.marble[0].name === marble.name))
-        alert("Item has already been added to cart !");
-      else if (quantity <= 0) alert("There is no quantity added !");
-      else if (marble.quantity < quantity) {
-        alert("We dont have the required quantity we will order it for you !");
-        updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
-      } else {
-        updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
-        alert("Item added !");
-      }
-    });
-
-    return cartArray;
-  };
-  console.log(cartArray);
   const MarbleImageModal = ({ imgUrl, onClose }) => {
     return (
       <div className="marble-image-modal">
@@ -64,12 +31,14 @@ export default function Marbles({ updateCartArray, cartArray }) {
     );
   };
 
+  const deleteToggle = function (id) {
+    deleteMarble(id);
+  };
+
   return (
     <div className="cardContainer">
       {marbles &&
         marbles.map((m, index) => {
-          const quantity =
-            quantities.find((item) => item.id === m._id)?.quantity || 0;
           return (
             <Card sx={{ maxWidth: 345 }} className="card" key={index}>
               <CardMedia
@@ -107,37 +76,24 @@ export default function Marbles({ updateCartArray, cartArray }) {
                   {m.type}
                 </Typography>
               </CardContent>
-              <TextField
-                id={`quantity_${m._id}`}
-                label="Quantity"
-                type="number"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(event) =>
-                  handleQuantityChange(m._id, event.target.value)
-                }
-                value={quantity}
-                style={{
-                  width: "250px",
-                  paddingLeft: "80px",
-                }}
-                placeholder="insert your quantity"
-              />
-              <br />
               <button
                 type="submit"
                 class="btn btn-dark"
                 onClick={() => {
-                  cart(m._id, quantity);
+                  deleteToggle(m._id);
                 }}
               >
-                Add To Cart
+                Delete
               </button>
+              <br />
+              <Link to={`/edit/${m._id}`}>
+                <button type="submit" class="btn btn-dark">
+                  Update
+                </button>
+              </Link>
             </Card>
           );
         })}
-      {/* <Cart cartArray={cartArray} setCartArray={setCartArray} /> */}
     </div>
   );
 }

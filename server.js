@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 var cors = require("cors");
-const marbleApi = require("./server/routes/marbleApi");
-const managerApi = require("./server/routes/managerApi");
-const orderApi = require("./server/routes/orderApi");
-const customerApi = require("./server/routes/customerApi");
+const marble = require("./server/routes/marble");
+const order = require("./server/routes/orders");
+const customer = require("./server/routes/customer");
+const manager = require("./server/routes/manager");
 const path = require("path");
 const port = 3001;
 const mongoose = require("mongoose");
@@ -31,10 +31,10 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "node_modules")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/", marbleApi);
-app.use("/", managerApi);
-app.use("/", customerApi);
-app.use("/", orderApi);
+app.use("/", marble);
+app.use("/", manager);
+app.use("/", customer);
+app.use("/", order);
 
 app.listen(port, function () {
   console.log(`Running on port ${port}`);
