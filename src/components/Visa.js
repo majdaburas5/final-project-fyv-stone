@@ -24,13 +24,7 @@ export default function Visa({ sumPrice, cartArray, setCartArray }) {
   console.log(cartArray);
   return (
     <div className="App">
-      <VisaCard
-        onSubmit={pay}
-        frontCardColor="linear-gradient(50deg, #f3c680, hsla(179,54%,76%,1))"
-        backCardColor="wheat"
-        submitBtnColor="wheat"
-        submitBtnTxt={`Total amount ${sumPrice}`}
-      />
+      <VisaCard onSubmit={pay} submitBtnTxt={`Total amount ${sumPrice}`} />
     </div>
   );
 }
