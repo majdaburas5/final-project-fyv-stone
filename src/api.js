@@ -46,7 +46,6 @@ export async function showMarbleByColor(color) {
 }
 
 export async function registerCustomerUser(newCustomer) {
-  console.log(newCustomer);
   await axios.post(`${URL}/customerUser`, newCustomer);
 }
 
@@ -56,4 +55,11 @@ export async function loginUser(user) {
 
 export async function getCustomers(user) {
   return await axios.get(`${URL}/customers`, user);
+}
+
+export async function updateMarble(id, updatedPrice, updatedQuantity) {
+  await axios.put(`${URL}/updateMarble/${id}`, {
+    price: updatedPrice,
+    quantity: updatedQuantity,
+  });
 }

@@ -13,6 +13,9 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
+import ManagerPage from "./manager-components/ManagerPage";
+import Managment from "./manager-components/Managment";
+import EditMarble from "./manager-components/EditMarble";
 
 function App() {
   const [cartArray, setCartArray] = useState([]);
@@ -63,6 +66,9 @@ function App() {
               />
             }
           />
+          <Route path="/manager/home-page" element={<ManagerPage />} />
+          <Route path="/managment" element={<Managment />} />
+          <Route path="/edit/:marbleId" element={<EditMarble />} />
         </Routes>
         <Footer />
       </div>
