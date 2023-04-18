@@ -86,3 +86,8 @@ export async function updateMarble(id, updatedPrice, updatedQuantity) {
     quantity: updatedQuantity,
   });
 }
+
+export async function getCustomerOrder(orderNumber) {
+  const response = await axios.get(`${URL}/getCustomerOrder/${orderNumber}`);
+  return response.data;
+}

@@ -47,7 +47,7 @@ export default function Cart({
             <tr key={cart.marble[0]._id}>
               <td>{cart.marble[0].name}</td>
               <td>{cart.quantity}</td>
-              <td>{cart.marble[0].price * cart.quantity} $</td>
+              <td>{cart.marble[0].price * cart.quantity} ₪</td>
               <td>
                 <img
                   src={cart.marble[0].img}
@@ -69,7 +69,7 @@ export default function Cart({
           ))}
         <tr>
           <th>Total Amount</th>
-          <td>{sumPrice}$</td>
+          <td>{sumPrice}₪</td>
         </tr>
       </table>
       <br />

@@ -54,14 +54,7 @@
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
-.order-number {
-  color: black;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.order-number:hover {
-  color: red;
-}
-td.order-number {
-  border-bottom: 1px solid #ccc;
+.img {
+  width: 400px;
+  height: 200px;
 }

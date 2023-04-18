@@ -16,7 +16,8 @@ const getOrderNumber = function () {
     .sort({ orderNumber: -1 })
     .limit(1)
     .then((order) => {
-      return order[0].orderNumber;
+      if (order.length > 0) return order[0].orderNumber;
+      return 1;
     });
 };
 
@@ -82,11 +83,14 @@ router.post("/cart/addToCart", async function (req, res) {
       })
     );
   });
+  cartArray.forEach((cart) => {
+    cart.save();
+  });
 
   const customer = await getCustomerById(req.body.customerId);
   const orderNum = await getOrderNumber();
   let c1 = new Order({
-    orderNumber: orderNum + 1,
+    orderNumber: orderNum,
     orderDate: date,
     customerId: customer,
     cart: cartArray,
@@ -106,6 +110,25 @@ router.get("/getCustomer/:id", async function (req, res) {
   Customer.find({ _id: id }).then((customer) => {
     res.send(customer);
   });
+});
+
+router.get("/getCustomerOrder/:orderNumber", async function (req, res) {
+  let { orderNumber } = req.params;
+  Order.find({ orderNumber })
+    .populate({
+      path: "cart",
+      populate: {
+        path: "marble",
+        model: "Marble",
+      },
+    })
+    .then((order) => {
+      res.send(order);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send("Internal Server Error");
+    });
 });
 
 module.exports = router;

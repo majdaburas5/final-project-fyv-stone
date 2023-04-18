@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 // import { notification } from 'antd';
 import "react-toastify/dist/ReactToastify.css";
 import { registerCustomerUser } from "../api";
+// import "../css/SignUp.css";
 
 const RegisterForm = () => {
   const [id, setId] = useState(0);
