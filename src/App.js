@@ -17,6 +17,7 @@ import ManagerPage from "./manager-components/ManagerPage";
 import Managment from "./manager-components/Managment";
 import EditMarble from "./manager-components/EditMarble";
 
+
 function App() {
   const [cartArray, setCartArray] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
