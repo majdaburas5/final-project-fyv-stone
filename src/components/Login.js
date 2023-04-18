@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { TextField, FormControl, Button } from "@mui/material";
 import { Link,useNavigate } from "react-router-dom"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { loginUser } from "../api";
 import { getCustomers } from "../api";
 const bcrypt = require("bcryptjs");
@@ -39,14 +41,17 @@ const Login = () => {
         }
  
         if (email && password) {
+          console.log("asdasdas");
             loginUser({email:email,password:password})
             const account = users.find((user) => user.email === email );
             if(account){
               const isPasswordValid = bcrypt.compareSync(password, account.password);
 
               if (isPasswordValid) {
+                
                 setAuthenticated(true)
                 localStorage.setItem("authenticated", true);
+                console.log(localStorage.getItem("authenticated"));
                 navigate("/");
             }
             }
@@ -56,7 +61,7 @@ const Login = () => {
      
     return ( 
         <React.Fragment>
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={handleSubmit} style={{ maxWidth: "500px", margin: "0 auto" }}>
             <h2>Login Page</h2>
                 <TextField 
                     label="Email"
