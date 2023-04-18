@@ -14,7 +14,6 @@ import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
 
-
 function App() {
   return (
     <Router>
