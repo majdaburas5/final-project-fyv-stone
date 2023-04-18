@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Opinion from "./components/Opinion";
@@ -16,6 +16,8 @@ import Visa from "./components/Visa";
 import ManagerPage from "./manager-components/ManagerPage";
 import Managment from "./manager-components/Managment";
 import EditMarble from "./manager-components/EditMarble";
+import AddNewMarble from "./manager-components/AddNewMarble";
+import Orders from "./manager-components/Orders";
 
 
 function App() {
@@ -70,6 +72,8 @@ function App() {
           <Route path="/manager/home-page" element={<ManagerPage />} />
           <Route path="/managment" element={<Managment />} />
           <Route path="/edit/:marbleId" element={<EditMarble />} />
+          <Route path="/add-new-marble" element={<AddNewMarble />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
         <Footer />
       </div>
