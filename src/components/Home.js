@@ -28,7 +28,7 @@ const Home = () => {
   const [index, setIndex] = useState(0);
 
   const nextSlide = () => {
-    if (index == slides.length - 1) {
+    if (index === slides.length - 1) {
       setIndex(0);
     } else {
       setIndex(index + 1);
@@ -36,7 +36,7 @@ const Home = () => {
   };
 
   const previousSlide = () => {
-    if (index == 0) {
+    if (index === 0) {
       setIndex(slides.length - 1);
     } else {
       setIndex(index - 1);
@@ -48,7 +48,7 @@ const Home = () => {
       <div className="slide-container">
         <i onClick={previousSlide} class="fa-solid fa-caret-left"></i>
         <i onClick={nextSlide} class="fa-solid fa-caret-right"></i>
-        <img src={slides[index].imageUrl} alt="Image 1" />
+        <img src={slides[index].imageUrl} alt={slides[index].imageUrl} />
         <div className="slide-data-container">
           <div className="slide-title-container">
             <h1 className="slide-title">{slides[index].title}</h1>
