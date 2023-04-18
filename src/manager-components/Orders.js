@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { marblesAddedToCart, getCustomer } from "../api";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "../manager-css/Orders.css";
 
 export default function Orders() {
@@ -36,7 +37,12 @@ export default function Orders() {
         <tbody>
           {orders.map((order, index) => (
             <tr key={order._id}>
-              <td>{order.orderNumber}</td>
+              <Link
+                to={`/order-details/${order.orderNumber}`}
+                className="order-number"
+              >
+                <td>{order.orderNumber}</td>
+              </Link>
               <td>{order.orderDate}</td>
               <td>{customerNames[index]}</td>
               <td>{customerPhones[index]}</td>
