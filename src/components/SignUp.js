@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import { TextField, Button, Container, Stack } from '@mui/material';
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify";
+import { notification } from 'antd';
 import "react-toastify/dist/ReactToastify.css";
 import { registerCustomerUser } from "../api";
 
- 
+
 const RegisterForm = () => {
     const [id, setId] = useState(0)
     const [name, setName] = useState('')
@@ -17,7 +18,6 @@ const RegisterForm = () => {
     function handleSubmit(event) {
         event.preventDefault();
         if(!checkEmail()){
-          console.log("asdas");
           notify("email error")
           return
         }
@@ -32,20 +32,22 @@ const RegisterForm = () => {
         };
         console.log(user);
         registerCustomerUser(user)
+        notify("Signup successful!")
     }
     const checkEmail = () =>{
       const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
       return regexExp.test(email)
     }
     const notify = (message) =>{
-      toast("Basic Notification!", {
-        position: toast.POSITION.TOP_LEFT
-      });
+        notification.success({
+            message: message,
+            description: 'You have successfully signed up.'
+        });
     }
     return (
         <React.Fragment>
             <h2>SignUp</h2>
-            <div onSubmit={handleSubmit} action={<Link to="/login" />}>
+            <div onSubmit={handleSubmit} action={<Link to="/login" />} style={{ maxWidth: "500px", margin: "0 auto" }}>
                 <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
                     <TextField
                         type="text"
