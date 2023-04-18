@@ -96,15 +96,16 @@ router.post("/cart/addToCart", async function (req, res) {
 });
 
 router.get("/marblesAddedToCart", async function (req, res) {
-  const cart = await Order.find({})
-    .populate("cart")
-    .then((cart) => {
-      return cart;
-    })
-    .populate("marble")
-    .then((marbles) => {
-      res.send(marbles);
-    });
+  await Order.find({}).then((cart) => {
+    res.send(cart);
+  });
+});
+
+router.get("/getCustomer/:id", async function (req, res) {
+  let { id } = req.params;
+  Customer.find({ _id: id }).then((customer) => {
+    res.send(customer);
+  });
 });
 
 module.exports = router;

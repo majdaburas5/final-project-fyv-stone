@@ -27,6 +27,11 @@ export async function marblesAddedToCart() {
   return response.data;
 }
 
+export async function getCustomer(id) {
+  const response = await axios.get(`${URL}/getCustomer/${id}`);
+  return response.data;
+}
+
 export async function deleteMarble(id) {
   await axios.delete(`${URL}/deleteMarble/${id}`);
 }
