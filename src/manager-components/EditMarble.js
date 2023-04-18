@@ -14,39 +14,37 @@ export default function EditMarble() {
   };
 
   return (
-    <div>
-      <div className="d-flex align-items-center justify-content-center custom-form-container">
-        <div className="custom-form-group">
-          <Form>
-            <Form.Group className="mb-3">
-              <h2>Edit Marble</h2>
-              <Form.Control
-                type="number"
-                value={priceValue}
-                onChange={(event) => setPriceValue(event.target.value)}
-                placeholder="Price"
-                required
-              />
-              <br />
-              <Form.Control
-                type="number"
-                value={quantityValue}
-                onChange={(event) => setQuantityValue(event.target.value)}
-                placeholder="Quantity"
-                required
-              />
-            </Form.Group>
-            <div className="buttons">
-              <button
-                type="submit"
-                className="edit"
-                onClick={() => handleSubmit(marbleId)}
-              >
-                Edit
-              </button>
-            </div>
-          </Form>
-        </div>
+    <div className="d-flex align-items-center justify-content-center custom-form-container">
+      <div className="custom-form-group">
+        <Form>
+          <Form.Group className="mb-3">
+            <h2>Edit Marble</h2>
+            <Form.Control
+              type="number"
+              value={priceValue}
+              onChange={(event) => setPriceValue(event.target.value)}
+              placeholder="Price"
+              required
+            />
+            <br />
+            <Form.Control
+              type="number"
+              value={quantityValue}
+              onChange={(event) => setQuantityValue(event.target.value)}
+              placeholder="Quantity"
+              required
+            />
+          </Form.Group>
+          <div className="buttons">
+            <button
+              type="submit"
+              className="edit"
+              onClick={() => handleSubmit(marbleId)}
+            >
+              Edit
+            </button>
+          </div>
+        </Form>
       </div>
     </div>
   );
