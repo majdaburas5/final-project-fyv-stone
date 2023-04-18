@@ -10,10 +10,7 @@ export default function Visa({ sumPrice, cartArray, setCartArray }) {
     console.log(data);
     const newCartArray = [...cartArray];
     newCartArray.map((marble) => {
-      console.log(marble.marble[0]._id);
-      console.log(marble.quantity);
       updateQuantity(marble.marble[0]._id, marble.quantity);
-      // console.log(marble.quantity);
     });
     // const qty = newCartArray.find((qty) => qty === marble.name);
     // newCartArray[marbleName].quantity -= quantity;

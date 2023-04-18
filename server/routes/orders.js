@@ -31,26 +31,47 @@ router.put("/marble/:id", async function (req, res) {
   quantity = parseInt(quantity);
   const updatedQuantity = await getQuantityById(id);
   const newQuantity = updatedQuantity - quantity;
-  Marble.findOneAndUpdate({ _id: id }, { quantity: newQuantity }, { new: true })
-    .then((updatedMarble) => {
-      if (updatedMarble) {
-        res.send(updatedMarble);
-      } else {
-        res.status(404).send({ message: "Marble not found" });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send({ message: "Internal server error" });
-    });
+  if (newQuantity > 0) {
+    Marble.findOneAndUpdate(
+      { _id: id },
+      { quantity: newQuantity },
+      { new: true }
+    )
+      .then((updatedMarble) => {
+        if (updatedMarble) {
+          res.send(updatedMarble);
+        } else {
+          res.status(404).send({ message: "Marble not found" });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Internal server error" });
+      });
+  } else {
+    let orderedQuantity = newQuantity * -1 + 100;
+    Marble.findOneAndUpdate(
+      { _id: id },
+      { quantity: orderedQuantity },
+      { new: true }
+    )
+      .then((updatedMarble) => {
+        if (updatedMarble) {
+          res.send(updatedMarble);
+        } else {
+          res.status(404).send({ message: "Marble not found" });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Internal server error" });
+      });
+    alert("We dont have the quantity you orderd we will order for you !");
+  }
 });
 
 router.post("/cart/addToCart", async function (req, res) {
   const date = new Date();
-  // const day = date.getDate();
-  // const month = date.getMonth() + 1;
-  // const year = date.getFullYear();
-  // const formattedDate = `${day}-${month}-${year}`;
   let cartArray = [];
   let marbles = req.body.marble;
   marbles.forEach((m) => {
