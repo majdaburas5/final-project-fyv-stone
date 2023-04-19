@@ -36,7 +36,7 @@ const Home = () => {
   const [index, setIndex] = useState(0);
 
   const nextSlide = () => {
-    if (index == slides.length - 1) {
+    if (index === slides.length - 1) {
       setIndex(0);
     } else {
       setIndex(index + 1);
@@ -44,7 +44,7 @@ const Home = () => {
   };
 
   const previousSlide = () => {
-    if (index == 0) {
+    if (index === 0) {
       setIndex(slides.length - 1);
     } else {
       setIndex(index - 1);

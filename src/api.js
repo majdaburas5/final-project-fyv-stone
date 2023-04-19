@@ -27,6 +27,11 @@ export async function marblesAddedToCart() {
   return response.data;
 }
 
+export async function getCustomer(id) {
+  const response = await axios.get(`${URL}/getCustomer/${id}`);
+  return response.data;
+}
+
 export async function deleteMarble(id) {
   await axios.delete(`${URL}/deleteMarble/${id}`);
 }
@@ -80,4 +85,9 @@ export async function updateMarble(id, updatedPrice, updatedQuantity) {
     price: updatedPrice,
     quantity: updatedQuantity,
   });
+}
+
+export async function getCustomerOrder(orderNumber) {
+  const response = await axios.get(`${URL}/getCustomerOrder/${orderNumber}`);
+  return response.data;
 }
