@@ -10,7 +10,7 @@ function Footer() {
           <h4>Get In Touch</h4>
         </div>
         <div className="footer-row">
-          <p><i class="fa-solid fa-location-dot"></i> Phone: 054-241-5860</p>
+          <p><i class="fa-solid fa-mobile-screen-button"></i> Phone: 054-241-5860</p>
         </div>
         <div className="footer-row">
           <p> <i className="fa-solid fa-envelope"></i> Email: FYV@stone.com</p>
