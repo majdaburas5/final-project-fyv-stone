@@ -11,7 +11,7 @@ const bcrypt = require("bcryptjs");
 
 
  
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -41,7 +41,6 @@ const Login = () => {
         }
  
         if (email && password) {
-          console.log("asdasdas");
             loginUser({email:email,password:password})
             const account = users.find((user) => user.email === email );
             if(account){
@@ -51,6 +50,7 @@ const Login = () => {
                 
                 setAuthenticated(true)
                 localStorage.setItem("authenticated", true);
+                setIsLoggedIn(true)
                 console.log(localStorage.getItem("authenticated"));
                 navigate("/");
             }

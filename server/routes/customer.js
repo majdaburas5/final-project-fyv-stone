@@ -53,8 +53,6 @@ async function authenticateUser(email, password) {
       return null;
     }
     const isPasswordValid = bcrypt.compareSync(password, user.password);
-    console.log(password);
-    console.log(user.password);
     if (!isPasswordValid) {
       return null;
     }
@@ -78,6 +76,11 @@ router.post("/login", (req, res) => {
     const accessToken = generateAccessToken(user);
     res.send({ accessToken });
   });
+});
+
+router.post('/logout', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  res.status(200).send('Logged out successfully');
 });
 
 router.get("/customers", (req, res) => {

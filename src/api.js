@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
 const URL = "http://localhost:3001";
 
 export async function marblesFromDB() {
@@ -63,3 +64,17 @@ export async function updateMarble(id, updatedPrice, updatedQuantity) {
     quantity: updatedQuantity,
   });
 }
+
+
+export  async function logout (setIsLoggedIn) {
+  try {
+    const token = localStorage.getItem('token');
+    await axios.post(`${URL}/logout`, null, { headers: { Authorization: `Bearer ${token}` } });
+    localStorage.removeItem('token');
+    localStorage.setItem("authenticated", false);
+    setIsLoggedIn(false)
+    // redirect to login page
+  } catch (err) {
+    console.error(err);
+  }
+};

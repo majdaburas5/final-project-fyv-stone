@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
+import LogoutButton from './components/Logout';
 import ManagerPage from "./manager-components/ManagerPage";
 import Managment from "./manager-components/Managment";
 import EditMarble from "./manager-components/EditMarble";
@@ -20,18 +21,20 @@ import EditMarble from "./manager-components/EditMarble";
 function App() {
   const [cartArray, setCartArray] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const updateCartArray = function (arr) {
     setCartArray(arr);
   };
   return (
     <Router>
       <div className="App">
-        <NavBar />
+        <NavBar isLoggedIn = {isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/opinion" element={<Opinion />} />
+          <Route path="/logout" element={LogoutButton} />
           <Route
             path="/cart"
             element={
@@ -45,7 +48,7 @@ function App() {
           />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setIsLoggedIn = {setIsLoggedIn}/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route
             path="/marbles"
