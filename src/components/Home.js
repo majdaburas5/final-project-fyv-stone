@@ -54,7 +54,7 @@ const Home = () => {
   const cardsData = [
     {
       title: "Marble vs. Wooden Flooring: Which One Is Good for You?",
-      text: "The most important aspect of planning and designing your dream home is the flooring. The flooring of your sumptuous residence can define the aesthetic and character of your choice of design while also adding functionality to the space. You must select a flooring material that goes well with your personality, home aesthetic, functionality of the space, and is easy to maintain. While marble flooring is often the first pick of aesthete homeowners and skilful home designers, people also choose wooden flooring to adorn their homes with. Modern home interiors require the application of materials that are not just durable but also create a distinctive, aesthetically appealing aesthetic in the space.",
+      text: "The most important aspect of planning and designing your dream home is the flooring. The flooring of your sumptuous residence can define the aesthetic and character of your choice of design while also adding functionality to the space. You must select a flooring material that goes well with your personality, home aesthetic, functionality of the space, and is easy to maintain. While marble flooring is often the first pick of aesthete homeowners and skilful home designers, people also choose wooden flooring to adorn their homes with. ",
       image:
         "https://i.pinimg.com/originals/81/1c/63/811c63feeff9992b5aa47c07ef11f0f1.jpg",
     },
@@ -72,7 +72,7 @@ const Home = () => {
     },
     {
       title: "Natural Stones for a Minimalist Approach",
-      text: "The rage about minimalistic interior design has left no soul unaware of its supremacy. Masterly architects and interior designers frequently prefer a minimalist approach to designing extraordinary residences for their aesthete clients. With a myriad of informative articles and social media posts about interior design trends appearing on our screens almost frequently, you are bound to feel overwhelmed about how to incorporate a minimalist approach into your home. Sure, it sounds exciting, but is there a perfect way to design a home with minimalism with no design element taking the wrong turn ?    Yes! There is! Consider this article as a 101 for your minimalism-inspired home décor.",
+      text: "The rage about minimalistic interior design has left no soul unaware of its supremacy. Masterly architects and interior designers frequently prefer a minimalist approach to designing extraordinary residences for their aesthete clients. With a myriad of informative articles and social media posts about interior design trends appearing on our screens almost frequently, you are bound to feel overwhelmed about how to incorporate a minimalist approach into your home.",
       image:
         "https://static.wixstatic.com/media/020191_97833e8a58954326a99cf4736eda4ec3~mv2.jpg/v1/fill/w_3000,h_3000,al_c,q_85/020191_97833e8a58954326a99cf4736eda4ec3~mv2.jpg",
     },
