@@ -16,8 +16,7 @@ const getOrderNumber = function () {
     .sort({ orderNumber: -1 })
     .limit(1)
     .then((order) => {
-      if (order.length > 0) return order[0].orderNumber;
-      return 1;
+      return order[0].orderNumber;
     });
 };
 
@@ -90,7 +89,7 @@ router.post("/cart/addToCart", async function (req, res) {
   const customer = await getCustomerById(req.body.customerId);
   const orderNum = await getOrderNumber();
   let c1 = new Order({
-    orderNumber: orderNum,
+    orderNumber: orderNum + 1,
     orderDate: date,
     customerId: customer,
     cart: cartArray,
