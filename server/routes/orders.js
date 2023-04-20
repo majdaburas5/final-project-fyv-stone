@@ -11,15 +11,6 @@ const getCustomerById = function (customerId) {
   });
 };
 
-const getOrderNumber = function () {
-  return Order.find({})
-    .sort({ orderNumber: -1 })
-    .limit(1)
-    .then((order) => {
-      return order[0].orderNumber;
-    });
-};
-
 const getQuantityById = async function (id) {
   const quantity = await Marble.find({ _id: id }, { quantity: 1 });
   return quantity[0].quantity;
@@ -66,19 +57,47 @@ router.put("/marble/:id", async function (req, res) {
         console.error(err);
         res.status(500).send({ message: "Internal server error" });
       });
-    alert("We dont have the quantity you orderd we will order for you !");
+    // Order.findByIdAndUpdate({ _id: id }, { status: "ordered" }, { new: true })
+    //   .then((updatedMarble) => {
+    //     res.send(updatedMarble);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     res.status(500).send({ message: "Internal server error" });
+    //   });
   }
 });
+
+const getOrderNumber = function () {
+  return Order.find({})
+    .sort({ orderNumber: -1 })
+    .limit(1)
+    .then((order) => {
+      return order[0].orderNumber;
+    });
+};
+
+// const getPurchaseTimes = function () {
+//   return Cart.find({purchaseTimes:1})
+//     .sort({ purchaseTimes: -1 })
+//     .limit(1)
+//     .then((purchase) => {
+//       return purchase[0].purchaseTimes;
+//     });
+// };
 
 router.post("/cart/addToCart", async function (req, res) {
   const date = new Date();
   let cartArray = [];
   let marbles = req.body.marble;
+  const purchase = await getPurchaseTimes();
+
   marbles.forEach((m) => {
     cartArray.push(
       new Cart({
         marble: m.marble,
         quantity: m.quantity,
+        // purchaseTimes: purchase + 1,
       })
     );
   });
@@ -114,6 +133,26 @@ router.get("/getCustomer/:id", async function (req, res) {
 router.get("/getCustomerOrder/:orderNumber", async function (req, res) {
   let { orderNumber } = req.params;
   Order.find({ orderNumber })
+    .populate({
+      path: "cart",
+      populate: {
+        path: "marble",
+        model: "Marble",
+      },
+    })
+    .then((order) => {
+      res.send(order);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send("Internal Server Error");
+    });
+});
+
+router.get("/getSpecificCustomerOrder/:customerId", async function (req, res) {
+  let { customerId } = req.params;
+  const user = await getCustomerById(customerId);
+  Order.find({ customerId: user._id })
     .populate({
       path: "cart",
       populate: {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 const URL = "http://localhost:3001";
 
 export async function marblesFromDB() {
@@ -12,6 +12,11 @@ export async function addItemToCart(marble, customerId) {
     marble,
     customerId,
   });
+}
+
+export async function getSpecificCustomerOrder(id) {
+  const response = await axios.get(`${URL}/getSpecificCustomerOrder/${id}`);
+  return response.data;
 }
 
 export async function addToCart(id) {
@@ -88,19 +93,20 @@ export async function updateMarble(id, updatedPrice, updatedQuantity) {
   });
 }
 
-
-export  async function logout (setIsLoggedIn) {
+export async function logout(setIsLoggedIn) {
   try {
-    const token = localStorage.getItem('token');
-    await axios.post(`${URL}/logout`, null, { headers: { Authorization: `Bearer ${token}` } });
-    localStorage.removeItem('token');
+    const token = localStorage.getItem("token");
+    await axios.post(`${URL}/logout`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    localStorage.removeItem("token");
     localStorage.setItem("authenticated", false);
-    setIsLoggedIn(false)
+    setIsLoggedIn(false);
     // redirect to login page
   } catch (err) {
     console.error(err);
   }
-};
+}
 export async function getCustomerOrder(orderNumber) {
   const response = await axios.get(`${URL}/getCustomerOrder/${orderNumber}`);
   return response.data;
