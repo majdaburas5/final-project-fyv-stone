@@ -2,7 +2,8 @@ import React from "react";
 import { VisaCreditCard as VisaCard } from "react-fancy-visa-card";
 import { addItemToCart } from "../api";
 import { updateQuantity } from "../api";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Visa({ sumPrice, cartArray, setCartArray }) {
   const customerId = 211263819;
 
@@ -13,7 +14,7 @@ export default function Visa({ sumPrice, cartArray, setCartArray }) {
       updateQuantity(marble.marble[0]._id, marble.quantity);
     });
     addItemToCart(cartArray, customerId);
-    alert("Thanks for buying from us !");
+    toast.success("Thanks for buying from us !");
   };
   console.log(cartArray);
   return (

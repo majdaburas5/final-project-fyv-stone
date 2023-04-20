@@ -20,6 +20,8 @@ import EditMarble from "./manager-components/EditMarble";
 import AddNewMarble from "./manager-components/AddNewMarble";
 import Orders from "./manager-components/Orders";
 import OrderDetails from "./manager-components/OrderDetails";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [cartArray, setCartArray] = useState([]);
@@ -31,6 +33,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <ToastContainer />
         <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <br />
         <Routes>

@@ -14,6 +14,8 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import MarbleByColor from "./MarbleByColor";
 import { showMarbleByColor } from "../api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PrettoSlider = styled(Slider)({
   color: "black",
@@ -119,7 +121,7 @@ export default function CustomizedSlider() {
     if (sumPercents === 1) {
       setMarblesByColor(marbles);
     } else {
-      alert("you must choose 100 % ");
+      toast.error("you must choose 100 %");
       setMarblesByColor([]);
     }
   };

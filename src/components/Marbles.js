@@ -8,7 +8,8 @@ import { marblesFromDB } from "../api";
 import { addToCart } from "../api";
 import TextField from "@mui/material/TextField";
 import "../css/Marbles.css";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Marbles({ updateCartArray, cartArray }) {
   const [marbles, setMarbles] = useState([]);
   // const [cartArray, setCartArray] = useState([]);
@@ -37,14 +38,17 @@ export default function Marbles({ updateCartArray, cartArray }) {
     const marble = marbles.find((m) => m._id === id);
     addToCart(id).then((res) => {
       if (cartArray.find((item) => item.marble[0].name === marble.name))
-        alert("Item has already been added to cart !");
-      else if (quantity <= 0) alert("There is no quantity added !");
+        toast.success("Item has already been added to cart !");
+      else if (quantity <= 0) toast.error("There is no quantity added !");
       else if (marble.quantity < quantity) {
-        alert("We dont have the required quantity we will order it for you !");
+        toast.warning(
+          "We dont have the required quantity we will order it for you !"
+        );
+
         updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
       } else {
         updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
-        alert("Item added !");
+        toast.success("Item added !");
       }
     });
 

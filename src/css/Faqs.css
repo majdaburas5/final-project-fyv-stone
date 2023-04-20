@@ -29,11 +29,15 @@
 .faq-answer {
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  transition: max-height 0.5s ease-out, opacity 0s ease-out;
+  z-index: 999;
+  overflow: hidden;
 }
 
 .faq-answer.show {
   max-height: 1000px;
   opacity: 1;
   transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+  padding: 10px;
+  max-height: 1000px;
 }
