@@ -169,4 +169,9 @@ router.get("/getSpecificCustomerOrder/:customerId", async function (req, res) {
     });
 });
 
+// router.put("/updateStatus/:status",function(req,res){
+//   let {status}=req.params;
+//   Order.findOneAndUpdate({})
+// })
+
 module.exports = router;
