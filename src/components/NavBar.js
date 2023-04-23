@@ -13,7 +13,7 @@ export default function NavBar({isLoggedIn,setIsLoggedIn}) {
   const navigate = useNavigate();
 
   const logoutUser = ()=>{
-    logout(setIsLoggedIn)
+    logout(setIsLoggedIn,navigate)
   }
   return (
     <>

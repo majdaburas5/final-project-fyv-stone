@@ -89,14 +89,14 @@ export async function updateMarble(id, updatedPrice, updatedQuantity) {
 }
 
 
-export  async function logout (setIsLoggedIn) {
+export  async function logout (setIsLoggedIn,navigate) {
   try {
     const token = localStorage.getItem('token');
     await axios.post(`${URL}/logout`, null, { headers: { Authorization: `Bearer ${token}` } });
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
     localStorage.setItem("authenticated", false);
     setIsLoggedIn(false)
-    // redirect to login page
+    navigate("/")
   } catch (err) {
     console.error(err);
   }
