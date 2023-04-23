@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
@@ -26,13 +26,19 @@ function App() {
   const [cartArray, setCartArray] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+
+  }, [isLoggedIn]); 
+
+
   const updateCartArray = function (arr) {
     setCartArray(arr);
   };
   return (
     <Router>
       <div className="App">
-        <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <NavBar isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -90,7 +96,7 @@ function App() {
         <br />
         <br />
         <br />
-        <Footer />
+        <Footer isLoggedIn = {isLoggedIn}/>
       </div>
     </Router>
   );

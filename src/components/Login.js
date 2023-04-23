@@ -20,6 +20,8 @@ const Login = ({setIsLoggedIn}) => {
     const [authenticated, setAuthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated")|| false));
     const [users,setUsers]=useState([])
 
+
+    
     useEffect(()=>{
       getCustomers().then((users, err) => {
           setUsers(users.data)
@@ -47,11 +49,9 @@ const Login = ({setIsLoggedIn}) => {
               const isPasswordValid = bcrypt.compareSync(password, account.password);
 
               if (isPasswordValid) {
-                
-                setAuthenticated(true)
-                localStorage.setItem("authenticated", true);
                 setIsLoggedIn(true)
-                console.log(localStorage.getItem("authenticated"));
+                setAuthenticated(true)
+                // localStorage.setItem("authenticated", true);
                 navigate("/");
             }
             }
