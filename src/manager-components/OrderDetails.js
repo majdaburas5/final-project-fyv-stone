@@ -28,7 +28,7 @@ export default function OrderDetails() {
             <th>Marble Name</th>
             <th>Marble Code</th>
             <th>Image</th>
-            <th>quantity</th>
+            <th>Quantity</th>
           </tr>
         </thead>
         <tbody>

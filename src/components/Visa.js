@@ -3,7 +3,7 @@ import { VisaCreditCard as VisaCard } from "react-fancy-visa-card";
 import { addItemToCart } from "../api";
 import { updateQuantity } from "../api";
 
-export default function Visa({ sumPrice, cartArray, setCartArray }) {
+export default function Visa({ sumPrice, cartArray }) {
   const customerId = 211263819;
 
   const pay = (e, data) => {

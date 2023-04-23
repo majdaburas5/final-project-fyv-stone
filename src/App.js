@@ -13,7 +13,8 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
-import LogoutButton from './components/Logout';
+import LogoutButton from "./components/Logout";
+import Notifications from "./components/Notifications";
 import ManagerPage from "./manager-components/ManagerPage";
 import Managment from "./manager-components/Managment";
 import EditMarble from "./manager-components/EditMarble";
@@ -57,7 +58,10 @@ function App() {
           />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login setIsLoggedIn = {setIsLoggedIn}/>} />
+          <Route
+            path="/login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+          />
           <Route path="/signup" element={<SignUp />} />
           <Route
             path="/marbles"
@@ -87,6 +91,7 @@ function App() {
             path="/order-details/:orderNumber"
             element={<OrderDetails />}
           />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
         <br />
         <br />
