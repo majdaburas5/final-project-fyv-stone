@@ -11,9 +11,9 @@ import "../css/NavBar.css";
 export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
-  const logoutUser = () => {
-    logout(setIsLoggedIn);
-  };
+  const logoutUser = ()=>{
+    logout(setIsLoggedIn,navigate)
+  }
   return (
     <>
       {isLoggedIn ? (
