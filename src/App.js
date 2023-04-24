@@ -37,6 +37,7 @@ function App() {
     <Router>
       <div className="App">
         <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <ToastContainer />
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
