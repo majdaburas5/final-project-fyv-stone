@@ -31,7 +31,6 @@ export default function Orders() {
             <th>Date</th>
             <th>Customer Name</th>
             <th>Phone</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +45,6 @@ export default function Orders() {
               <td>{order.orderDate}</td>
               <td>{customerNames[index]}</td>
               <td>{customerPhones[index]}</td>
-              <td>{order.status}</td>
             </tr>
           ))}
         </tbody>

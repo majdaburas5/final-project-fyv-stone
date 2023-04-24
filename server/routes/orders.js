@@ -57,14 +57,6 @@ router.put("/marble/:id", async function (req, res) {
         console.error(err);
         res.status(500).send({ message: "Internal server error" });
       });
-    // Order.findByIdAndUpdate({ _id: id }, { status: "ordered" }, { new: true })
-    //   .then((updatedMarble) => {
-    //     res.send(updatedMarble);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     res.status(500).send({ message: "Internal server error" });
-    //   });
   }
 });
 
@@ -112,7 +104,6 @@ router.post("/cart/addToCart", async function (req, res) {
     orderDate: date,
     customerId: customer,
     cart: cartArray,
-    status: "wait",
   });
   c1.save();
 });
@@ -168,10 +159,5 @@ router.get("/getSpecificCustomerOrder/:customerId", async function (req, res) {
       res.status(500).send("Internal Server Error");
     });
 });
-
-// router.put("/updateStatus/:status",function(req,res){
-//   let {status}=req.params;
-//   Order.findOneAndUpdate({})
-// })
 
 module.exports = router;

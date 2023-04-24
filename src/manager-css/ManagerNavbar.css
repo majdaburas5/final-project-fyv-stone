@@ -1,0 +1,57 @@
+.home {
+  color: white;
+  text-decoration: none;
+}
+
+.home:hover {
+  color: white;
+}
+.opinion {
+  color: white;
+  text-decoration: none;
+}
+.opinion:hover {
+  color: white;
+}
+.products {
+  color: white;
+  text-decoration: none;
+}
+.products:hover {
+  color: white;
+}
+.cart {
+  color: white;
+  text-decoration: none;
+}
+.cart:hover {
+  color: white;
+}
+.contact {
+  color: white;
+  text-decoration: none;
+}
+.contact:hover {
+  color: white;
+}
+.about {
+  color: white;
+  text-decoration: none;
+}
+.about:hover {
+  color: white;
+}
+.login {
+  color: white;
+  text-decoration: none;
+}
+.login:hover {
+  color: white;
+}
+.notifications {
+  color: white;
+  text-decoration: none;
+}
+.notifications:hover {
+  color: white;
+}
