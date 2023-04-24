@@ -31,11 +31,50 @@ const Login = ({ setIsLoggedIn }) => {
     setEmailError(false);
     setPasswordError(false);
 
+<<<<<<< HEAD
     if (email == "") {
       setEmailError(true);
     }
     if (password == "") {
       setPasswordError(true);
+=======
+
+    
+    useEffect(()=>{
+      getCustomers().then((users, err) => {
+          setUsers(users.data)
+      })
+    },[])
+
+ 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+ 
+        setEmailError(false)
+        setPasswordError(false)
+ 
+        if (email == '') {
+            setEmailError(true)
+        }
+        if (password == '') {
+            setPasswordError(true)
+        }
+ 
+        if (email && password) {
+            loginUser({email:email,password:password})
+            const account = users.find((user) => user.email === email );
+            if(account){
+              const isPasswordValid = bcrypt.compareSync(password, account.password);
+
+              if (isPasswordValid) {
+                setIsLoggedIn(true)
+                setAuthenticated(true)
+                // localStorage.setItem("authenticated", true);
+                navigate("/");
+            }
+            }
+        }
+>>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
     }
 
     if (email && password) {

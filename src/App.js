@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
 import LogoutButton from "./components/Logout";
+import Notifications from "./components/Notifications";
 import ManagerPage from "./manager-components/ManagerPage";
 import Managment from "./manager-components/Managment";
 import EditMarble from "./manager-components/EditMarble";
@@ -27,14 +28,24 @@ function App() {
   const [cartArray, setCartArray] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+
+  }, [isLoggedIn]); 
+
+
   const updateCartArray = function (arr) {
     setCartArray(arr);
   };
   return (
     <Router>
       <div className="App">
+<<<<<<< HEAD
         <ToastContainer />
         <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+=======
+        <NavBar isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>
+>>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -87,11 +98,12 @@ function App() {
             path="/order-details/:orderNumber"
             element={<OrderDetails />}
           />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
         <br />
         <br />
         <br />
-        <Footer />
+        <Footer isLoggedIn = {isLoggedIn}/>
       </div>
     </Router>
   );

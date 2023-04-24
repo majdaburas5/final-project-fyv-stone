@@ -13,10 +13,16 @@ import "react-toastify/dist/ReactToastify.css";
 export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const logoutUser = () => {
     logout(setIsLoggedIn);
     toast.success("Logged out successfully");
   };
+=======
+  const logoutUser = ()=>{
+    logout(setIsLoggedIn,navigate)
+  }
+>>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
   return (
     <>
       {isLoggedIn ? (
@@ -40,6 +46,19 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
                 </Link>
               </Nav.Link>
               <Nav.Link>
+<<<<<<< HEAD
+=======
+                <Link to="/cart" className="cart">
+                  Cart
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to="/notifications" className="notifications">
+                  Notifications
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+>>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
                 <Link to="/contact" className="contact">
                   Contact
                 </Link>
@@ -78,11 +97,14 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
                 </Link>
               </Nav.Link>
               <Nav.Link>
+<<<<<<< HEAD
                 <Link to="/cart" className="cart">
                   Cart
                 </Link>
               </Nav.Link>
               <Nav.Link>
+=======
+>>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
                 <Link to="/contact" className="contact">
                   Contact
                 </Link>

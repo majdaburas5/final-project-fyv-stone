@@ -14,6 +14,11 @@ export async function addItemToCart(marble, customerId) {
   });
 }
 
+export async function getSpecificCustomerOrder(id) {
+  const response = await axios.get(`${URL}/getSpecificCustomerOrder/${id}`);
+  return response.data;
+}
+
 export async function addToCart(id) {
   const response = await axios.get(`${URL}/marble/${id}`);
   return response.data;
@@ -88,6 +93,7 @@ export async function updateMarble(id, updatedPrice, updatedQuantity) {
   });
 }
 
+<<<<<<< HEAD
 export async function logout(setIsLoggedIn) {
   try {
     const token = localStorage.getItem("token");
@@ -98,11 +104,32 @@ export async function logout(setIsLoggedIn) {
     localStorage.setItem("authenticated", false);
     setIsLoggedIn(false);
     // redirect to login page
+=======
+
+export  async function logout (setIsLoggedIn,navigate) {
+  try {
+    const token = localStorage.getItem('token');
+    await axios.post(`${URL}/logout`, null, { headers: { Authorization: `Bearer ${token}` } });
+    // localStorage.removeItem('token');
+    localStorage.setItem("authenticated", false);
+    setIsLoggedIn(false)
+    navigate("/")
+>>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
   } catch (err) {
     console.error(err);
   }
 }
 export async function getCustomerOrder(orderNumber) {
   const response = await axios.get(`${URL}/getCustomerOrder/${orderNumber}`);
+  return response.data;
+}
+
+export async function filteredMarbles(object) {
+  const response = await axios.post(`${URL}/marbles/filter`, object);
+  return response.data;
+}
+
+export async function getMarbleFilterValues(filterName) {
+  const response = await axios.get(`${URL}/marbles/${filterName}`);
   return response.data;
 }

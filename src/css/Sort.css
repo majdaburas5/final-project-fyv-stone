@@ -1,0 +1,14 @@
+.filter-bar-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f7f7f7;
+  }
+  
+
+  .btn-filter{
+    color: white !important ;
+    background-color: #212529 !important ;
+    margin-right: 10px;
+
+  }

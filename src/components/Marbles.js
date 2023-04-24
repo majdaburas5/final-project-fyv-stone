@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Marbles({ updateCartArray, cartArray }) {
   const [marbles, setMarbles] = useState([]);
-  // const [cartArray, setCartArray] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
 

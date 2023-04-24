@@ -48,3 +48,10 @@
 .login:hover {
   color: white;
 }
+.notifications {
+  color: white;
+  text-decoration: none;
+}
+.notifications:hover {
+  color: white;
+}
