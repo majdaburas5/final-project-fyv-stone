@@ -69,12 +69,12 @@ const getOrderNumber = function () {
     });
 };
 
-const getPurchaseTimes = function () {
-  return Cart.findByIdAndUpdate({}, { purchaseTimes: 1 })
+const getPurchaseTimes = function (id) {
+  return Cart.findByIdAndUpdate({_id: id}, { purchaseTimes: 1 })
     .sort({ purchaseTimes: -1 })
     .limit(1)
     .then((purchase) => {
-      if (purchase.length > 0) return purchase[0].purchaseTimes;
+      if (purchase.length > 0) return purchase[0].purchaseTimes+1;
       return 0;
     });
 };
@@ -83,7 +83,7 @@ router.post("/cart/addToCart", async function (req, res) {
   const date = new Date();
   let cartArray = [];
   let marbles = req.body.marble;
-  const purchase = await getPurchaseTimes();
+  const purchase = await getPurchaseTimes(marbles._id);
   console.log(purchase);
   marbles.forEach((m) => {
     cartArray.push(
