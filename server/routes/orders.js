@@ -90,7 +90,7 @@ router.post("/cart/addToCart", async function (req, res) {
   const date = new Date();
   let cartArray = [];
   let marbles = req.body.marble;
-  const purchase = await getPurchaseTimes();
+  // const purchase = await getPurchaseTimes();
 
   marbles.forEach((m) => {
     cartArray.push(

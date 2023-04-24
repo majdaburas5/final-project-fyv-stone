@@ -13,7 +13,6 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Marbles from "./components/Marbles";
 import Visa from "./components/Visa";
-import LogoutButton from "./components/Logout";
 import Notifications from "./components/Notifications";
 import ManagerPage from "./manager-components/ManagerPage";
 import Managment from "./manager-components/Managment";
@@ -29,10 +28,7 @@ function App() {
   const [sumPrice, setSumPrice] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-
-  }, [isLoggedIn]); 
-
+  useEffect(() => {}, [isLoggedIn]);
 
   const updateCartArray = function (arr) {
     setCartArray(arr);
@@ -40,18 +36,12 @@ function App() {
   return (
     <Router>
       <div className="App">
-<<<<<<< HEAD
-        <ToastContainer />
         <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-=======
-        <NavBar isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>
->>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/opinion" element={<Opinion />} />
-          <Route path="/logout" element={LogoutButton} />
           <Route
             path="/cart"
             element={
@@ -103,7 +93,7 @@ function App() {
         <br />
         <br />
         <br />
-        <Footer isLoggedIn = {isLoggedIn}/>
+        <Footer isLoggedIn={isLoggedIn} />
       </div>
     </Router>
   );
