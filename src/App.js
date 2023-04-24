@@ -63,6 +63,7 @@ function App() {
               <Marbles
                 updateCartArray={updateCartArray}
                 cartArray={cartArray}
+                isLoggedIn={isLoggedIn}
               />
             }
           />

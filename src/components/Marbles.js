@@ -4,15 +4,17 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "../css/Products.css";
-import { marblesFromDB } from "../api";
 import { addToCart } from "../api";
 import TextField from "@mui/material/TextField";
 import "../css/Marbles.css";
+import { marblesFromDB, filteredMarbles} from "../api";
+import FilterButton from "./FilterButton";
 
-export default function Marbles({ updateCartArray, cartArray }) {
+export default function Marbles({ updateCartArray, cartArray , isLoggedIn}) {
   const [marbles, setMarbles] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
+  const filterBy = ["type", "name", "style", "price"]
 
   useEffect(() => {
     marblesFromDB().then((res) => {
@@ -30,6 +32,30 @@ export default function Marbles({ updateCartArray, cartArray }) {
       }
       return [...prevQuantities];
     });
+  };
+
+  const handleFilterChange = (value, filterName) => {
+
+    let filterObj = {}
+    let sortObject = {}
+      if (value === "A - Z") {
+        sortObject.name = 1
+      }
+      else if (value === "Z - A") {
+        sortObject.name = -1
+      }
+      else if (value === "High to Low") {
+        sortObject.price = -1
+      }
+      else if (value === "Low to High"){
+        sortObject.price = 1
+      }
+      else {
+        filterObj[filterName] = value
+      }
+      filteredMarbles({filterObj, sortObject}).then((res) => {
+        setMarbles(res);
+      })
   };
 
   const cart = (id, quantity) => {
@@ -64,6 +90,13 @@ export default function Marbles({ updateCartArray, cartArray }) {
   };
 
   return (
+    <>
+    <div className="filter-bar-container">
+    {filterBy.map(f=>{
+      return(
+       <FilterButton handleFilterChange={handleFilterChange} filterName={f} />
+    )})}
+  </div>
     <div className="cardContainer">
       {marbles &&
         marbles.map((m, index) => {
@@ -106,6 +139,8 @@ export default function Marbles({ updateCartArray, cartArray }) {
                   {m.type}
                 </Typography>
               </CardContent>
+                {isLoggedIn ? (
+                  <>
               <TextField
                 id={`quantity_${m._id}`}
                 label="Quantity"
@@ -133,10 +168,12 @@ export default function Marbles({ updateCartArray, cartArray }) {
               >
                 Add To Cart
               </button>
+              </>
+                ):(null)}
             </Card>
           );
         })}
-      {/* <Cart cartArray={cartArray} setCartArray={setCartArray} /> */}
     </div>
+    </>
   );
 }
