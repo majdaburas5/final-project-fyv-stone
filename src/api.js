@@ -93,15 +93,16 @@ export async function updateMarble(id, updatedPrice, updatedQuantity) {
   });
 }
 
-
-export  async function logout (setIsLoggedIn,navigate) {
+export async function logout(setIsLoggedIn, navigate) {
   try {
-    const token = localStorage.getItem('token');
-    await axios.post(`${URL}/logout`, null, { headers: { Authorization: `Bearer ${token}` } });
+    const token = localStorage.getItem("token");
+    await axios.post(`${URL}/logout`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     // localStorage.removeItem('token');
     localStorage.setItem("authenticated", false);
-    setIsLoggedIn(false)
-    navigate("/")
+    setIsLoggedIn(false);
+    navigate("/");
   } catch (err) {
     console.error(err);
   }

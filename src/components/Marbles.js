@@ -49,7 +49,6 @@ export default function Marbles({ updateCartArray, cartArray }) {
 
     return cartArray;
   };
-  console.log(cartArray);
   const MarbleImageModal = ({ imgUrl, onClose }) => {
     return (
       <div className="marble-image-modal">
