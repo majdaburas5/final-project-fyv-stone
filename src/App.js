@@ -41,7 +41,7 @@ function App() {
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
+          {/* <Route path="/products" element={<Products />} /> */}
           <Route path="/opinion" element={<Opinion />} />
           <Route
             path="/cart"
