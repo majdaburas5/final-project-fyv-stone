@@ -12,6 +12,13 @@ export async function marblesFromDB() {
   return response.data;
 }
 
+
+export async function productsFromDB() {
+  const response = await axios.get(`${URL}/getProducts`);
+  return response.data;
+}
+
+
 export async function addItemToCart(marble, customerId) {
   await axios.post(`${URL}/cart/addToCart`, {
     marble,
@@ -117,7 +124,8 @@ export async function logout(setIsLoggedIn, navigate) {
     await axios.post(`${URL}/logout`, null, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    localStorage.setItem("authenticated", false);
+    localStorage.removeItem('token');
+    // localStorage.setItem("authenticated", false);
     setIsLoggedIn(false);
     navigate("/");
   } catch (err) {

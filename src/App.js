@@ -26,7 +26,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [cartArray, setCartArray] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token"));
 
   useEffect(() => {}, [isLoggedIn]);
 

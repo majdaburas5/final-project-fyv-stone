@@ -25,6 +25,18 @@ router.get("/getMarbles", authenticateToken, async function (req, res) {
   }
 });
 
+router.get("/getProducts", async function (req, res) {
+  try {
+    Marble.find({}).then((marble) => {
+      res.send(marble);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({ message: "Invalid token" });
+  }
+});
+
+
 function authenticateToken(req, res, next) {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];

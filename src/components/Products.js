@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "../css/Products.css";
-import { marblesFromDB, filteredMarbles } from "../api";
+import { productsFromDB, filteredMarbles } from "../api";
 import { useState, useEffect } from "react";
 import FilterButton from "./FilterButton";
 
@@ -14,7 +14,7 @@ export default function Products() {
   const filterBy = ["type", "name", "style", "price"];
 
   useEffect(() => {
-    marblesFromDB().then((res) => {
+    productsFromDB().then((res) => {
       setMarbles(res);
     });
   }, []);
