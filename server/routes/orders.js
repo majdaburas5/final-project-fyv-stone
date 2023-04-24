@@ -69,27 +69,28 @@ const getOrderNumber = function () {
     });
 };
 
-// const getPurchaseTimes = function () {
-//   return Cart.find({purchaseTimes:1})
-//     .sort({ purchaseTimes: -1 })
-//     .limit(1)
-//     .then((purchase) => {
-//       return purchase[0].purchaseTimes;
-//     });
-// };
+const getPurchaseTimes = function () {
+  return Cart.findByIdAndUpdate({}, { purchaseTimes: 1 })
+    .sort({ purchaseTimes: -1 })
+    .limit(1)
+    .then((purchase) => {
+      if (purchase.length > 0) return purchase[0].purchaseTimes;
+      return 0;
+    });
+};
 
 router.post("/cart/addToCart", async function (req, res) {
   const date = new Date();
   let cartArray = [];
   let marbles = req.body.marble;
-  // const purchase = await getPurchaseTimes();
-
+  const purchase = await getPurchaseTimes();
+  console.log(purchase);
   marbles.forEach((m) => {
     cartArray.push(
       new Cart({
         marble: m.marble,
         quantity: m.quantity,
-        // purchaseTimes: purchase + 1,
+        purchaseTimes: purchase,
       })
     );
   });

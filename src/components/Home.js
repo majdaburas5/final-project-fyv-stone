@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../css/Home.css";
 import { Link } from "react-router-dom";
 import FAQs from "./FAQ";
+import Top5 from "./Top5";
 const Home = () => {
   const slides = [
     {
@@ -114,6 +115,7 @@ const Home = () => {
       <div className="faqs">
         <FAQs />
       </div>
+      <Top5 />
     </div>
   );
 };
