@@ -8,7 +8,7 @@ import { getCustomers } from "../api";
 
 const bcrypt = require("bcryptjs");
 
-const Login = ({ setIsLoggedIn }) => {
+export default function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,51 +31,43 @@ const Login = ({ setIsLoggedIn }) => {
     setEmailError(false);
     setPasswordError(false);
 
-<<<<<<< HEAD
-    if (email == "") {
-      setEmailError(true);
-    }
-    if (password == "") {
-      setPasswordError(true);
-=======
-
-    
-    useEffect(()=>{
+    useEffect(() => {
       getCustomers().then((users, err) => {
-          setUsers(users.data)
-      })
-    },[])
+        setUsers(users.data);
+      });
+    }, []);
 
- 
     const handleSubmit = (event) => {
-        event.preventDefault()
- 
-        setEmailError(false)
-        setPasswordError(false)
- 
-        if (email == '') {
-            setEmailError(true)
-        }
-        if (password == '') {
-            setPasswordError(true)
-        }
- 
-        if (email && password) {
-            loginUser({email:email,password:password})
-            const account = users.find((user) => user.email === email );
-            if(account){
-              const isPasswordValid = bcrypt.compareSync(password, account.password);
+      event.preventDefault();
 
-              if (isPasswordValid) {
-                setIsLoggedIn(true)
-                setAuthenticated(true)
-                // localStorage.setItem("authenticated", true);
-                navigate("/");
-            }
-            }
+      setEmailError(false);
+      setPasswordError(false);
+
+      if (email == "") {
+        setEmailError(true);
+      }
+      if (password == "") {
+        setPasswordError(true);
+      }
+
+      if (email && password) {
+        loginUser({ email: email, password: password });
+        const account = users.find((user) => user.email === email);
+        if (account) {
+          const isPasswordValid = bcrypt.compareSync(
+            password,
+            account.password
+          );
+
+          if (isPasswordValid) {
+            setIsLoggedIn(true);
+            setAuthenticated(true);
+            // localStorage.setItem("authenticated", true);
+            navigate("/");
+          }
         }
->>>>>>> 1d777606ca87b31016850c922861ba20cb05745e
-    }
+      }
+    };
 
     if (email && password) {
       loginUser({ email: email, password: password });
@@ -136,6 +128,4 @@ const Login = ({ setIsLoggedIn }) => {
       </small>
     </React.Fragment>
   );
-};
-
-export default Login;
+}
