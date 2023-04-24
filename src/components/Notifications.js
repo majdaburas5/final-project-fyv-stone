@@ -28,7 +28,6 @@ export default function Notifications() {
             <th>Image</th>
             <th>Quantity</th>
             <th>Date</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -49,7 +48,6 @@ export default function Notifications() {
                     </td>
                     <td>{cartArray.quantity}</td>
                     <td>{order.orderDate}</td>
-                    <td>{order.status}</td>
                   </tr>
                 ))}
               </React.Fragment>

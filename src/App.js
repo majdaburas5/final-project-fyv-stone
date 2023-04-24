@@ -37,6 +37,7 @@ function App() {
     <Router>
       <div className="App">
         <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <ToastContainer />
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -66,6 +67,7 @@ function App() {
               <Marbles
                 updateCartArray={updateCartArray}
                 cartArray={cartArray}
+                isLoggedIn={isLoggedIn}
               />
             }
           />

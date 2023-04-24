@@ -10,13 +10,14 @@ import "../css/NavBar.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
+export default function ManagerNavbar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
   const logoutUser = () => {
     logout(setIsLoggedIn, navigate);
     toast.success("Logged out successfully");
   };
+
   return (
     <>
       {isLoggedIn ? (
@@ -25,38 +26,33 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
             <Navbar.Brand>FYV STONE</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link>
-                <Link to="/" className="home">
+                <Link to="/manager/home-page" className="home">
                   Home
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/marbles" className="products">
-                  Products
+                <Link to="/managment" className="products">
+                  Managment
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/opinion" className="opinion">
-                  Opinion
+                <Link to="/edit/:marbleId" className="opinion">
+                  Edit
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/cart" className="cart">
-                  Cart
+                <Link to="/add-new-marble" className="cart">
+                  Add Marble
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/notifications" className="notifications">
-                  Notifications
+                <Link to="/orders" className="notifications">
+                  Orders
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/contact" className="contact">
-                  Contact
-                </Link>
-              </Nav.Link>
-              <Nav.Link>
-                <Link to="/about" className="about">
-                  About
+                <Link to="/order-details/:orderNumber" className="contact">
+                  Customer Orders
                 </Link>
               </Nav.Link>
               <Nav.Link>
@@ -73,33 +69,38 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
             <Navbar.Brand>FYV STONE</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link>
-                <Link to="/" className="home">
+                <Link to="/manager/home-page" className="home">
                   Home
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/marbles" className="products">
-                  Products
+                <Link to="/managment" className="products">
+                  Managment
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/opinion" className="opinion">
-                  Opinion
+                <Link to="/edit/:marbleId" className="opinion">
+                  Edit
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/contact" className="contact">
-                  Contact
+                <Link to="/add-new-marble" className="cart">
+                  Add Marble
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/about" className="about">
-                  About
+                <Link to="/orders" className="notifications">
+                  Orders
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to="/order-details/:orderNumber" className="contact">
+                  Customer Orders
                 </Link>
               </Nav.Link>
               <Nav.Link>
                 <Link to="/login" className="login">
-                  Login
+                  Log in
                 </Link>
               </Nav.Link>
             </Nav>

@@ -57,14 +57,6 @@ router.put("/marble/:id", async function (req, res) {
         console.error(err);
         res.status(500).send({ message: "Internal server error" });
       });
-    // Order.findByIdAndUpdate({ _id: id }, { status: "ordered" }, { new: true })
-    //   .then((updatedMarble) => {
-    //     res.send(updatedMarble);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     res.status(500).send({ message: "Internal server error" });
-    //   });
   }
 });
 
@@ -77,27 +69,28 @@ const getOrderNumber = function () {
     });
 };
 
-// const getPurchaseTimes = function () {
-//   return Cart.find({purchaseTimes:1})
-//     .sort({ purchaseTimes: -1 })
-//     .limit(1)
-//     .then((purchase) => {
-//       return purchase[0].purchaseTimes;
-//     });
-// };
+const getPurchaseTimes = function () {
+  return Cart.findByIdAndUpdate({}, { purchaseTimes: 1 })
+    .sort({ purchaseTimes: -1 })
+    .limit(1)
+    .then((purchase) => {
+      if (purchase.length > 0) return purchase[0].purchaseTimes;
+      return 0;
+    });
+};
 
 router.post("/cart/addToCart", async function (req, res) {
   const date = new Date();
   let cartArray = [];
   let marbles = req.body.marble;
-  // const purchase = await getPurchaseTimes();
-
+  const purchase = await getPurchaseTimes();
+  console.log(purchase);
   marbles.forEach((m) => {
     cartArray.push(
       new Cart({
         marble: m.marble,
         quantity: m.quantity,
-        // purchaseTimes: purchase + 1,
+        purchaseTimes: purchase,
       })
     );
   });
@@ -112,7 +105,6 @@ router.post("/cart/addToCart", async function (req, res) {
     orderDate: date,
     customerId: customer,
     cart: cartArray,
-    status: "wait",
   });
   c1.save();
 });
@@ -168,10 +160,5 @@ router.get("/getSpecificCustomerOrder/:customerId", async function (req, res) {
       res.status(500).send("Internal Server Error");
     });
 });
-
-// router.put("/updateStatus/:status",function(req,res){
-//   let {status}=req.params;
-//   Order.findOneAndUpdate({})
-// })
 
 module.exports = router;

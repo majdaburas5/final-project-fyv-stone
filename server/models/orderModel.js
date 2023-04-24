@@ -7,7 +7,6 @@ const orderSchema = new Schema({
   customerId: { type: Schema.Types.ObjectId, ref: "Customer" },
   cart: [{ type: Schema.Types.ObjectId, ref: "Cart" }],
   quantity: Number,
-  status: String,
 });
 
 const Order = mongoose.model("Order", orderSchema);
