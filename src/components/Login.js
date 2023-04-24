@@ -8,7 +8,7 @@ import { getCustomers } from "../api";
 
 const bcrypt = require("bcryptjs");
 
-const Login = ({ setIsLoggedIn }) => {
+export default function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +55,6 @@ const Login = ({ setIsLoggedIn }) => {
       }
     }
   };
-
   return (
     <React.Fragment>
       <form
@@ -97,6 +96,4 @@ const Login = ({ setIsLoggedIn }) => {
       </small>
     </React.Fragment>
   );
-};
-
-export default Login;
+}
