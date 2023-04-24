@@ -3,7 +3,12 @@ import { useHistory } from "react-router-dom";
 const URL = "http://localhost:3001";
 
 export async function marblesFromDB() {
-  const response = await axios.get(`${URL}/getMarbles`);
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${URL}/getMarbles`, {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  });
   return response.data;
 }
 
@@ -79,7 +84,20 @@ export async function registerCustomerUser(newCustomer) {
 }
 
 export async function loginUser(user) {
-  await axios.post(`${URL}/login`, user);
+  axios.post(`${URL}/login`, user)
+.then(response => {
+    localStorage.setItem('token', response.data.accessToken);
+})
+.catch(error => {
+    if (error.response && error.response.status === 401) {
+        console.log('Unauthorized error:', error);
+    } else {
+        console.log('Request failed:', error);
+    }
+});
+
+
+  // await axios.post(`${URL}/login`, user);
 }
 
 export async function getCustomers(user) {
@@ -99,7 +117,6 @@ export async function logout(setIsLoggedIn, navigate) {
     await axios.post(`${URL}/logout`, null, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    // localStorage.removeItem('token');
     localStorage.setItem("authenticated", false);
     setIsLoggedIn(false);
     navigate("/");

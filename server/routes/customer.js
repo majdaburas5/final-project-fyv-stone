@@ -66,17 +66,19 @@ function generateAccessToken(user) {
 
 router.post("/login", (req, res) => {
   // console.log();
+  console.log("asdasdas");
   const { email, password } = req.body;
   const user = authenticateUser(email, password);
   user.then((user) => {
     if (!user) {
-      console.log(user);
       return res.status(401).send({ message: "Invalid username or password" });
     }
     const accessToken = generateAccessToken(user);
+    console.log(accessToken);
     res.send({ accessToken });
   });
 });
+
 
 router.post('/logout', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
