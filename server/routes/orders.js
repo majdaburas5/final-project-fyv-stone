@@ -65,17 +65,18 @@ const getOrderNumber = function () {
     .sort({ orderNumber: -1 })
     .limit(1)
     .then((order) => {
-      return order[0].orderNumber;
+      if (order.length > 0) return order[0].orderNumber + 1;
+      return 1;
     });
 };
 
 const getPurchaseTimes = function (marbleId) {
-  return Cart.findOne({ 'marble': marbleId }).sort({ purchaseTimes: -1 })
-  .limit(1)
+  return Cart.findOne({ marble: marbleId })
+    .sort({ purchaseTimes: -1 })
+    .limit(1)
     .then((cart) => {
-      if (cart.length > 0) return cart[0].purchaseTimes;
-      else
-      return 0;
+      if (cart === null) return 1;
+      return cart.purchaseTimes + 1;
     });
 };
 
@@ -85,32 +86,49 @@ router.post("/cart/addToCart", async function (req, res) {
   let marbles = req.body.marble;
   for (const m of marbles) {
     let purchase = await getPurchaseTimes(m.marble[0]._id);
-    console.log(m.marble[0]._id, purchase);
- 
-  marbles.forEach((m) => {
     cartArray.push(
       new Cart({
         marble: m.marble,
         quantity: m.quantity,
-        purchaseTimes: purchase + 1,
+        purchaseTimes: purchase,
       })
     );
-  });
-
+  }
   for (const cart of cartArray) {
     await cart.save();
   }
-}
-
   const customer = await getCustomerById(req.body.customerId);
   const orderNum = await getOrderNumber();
   let c1 = new Order({
-    orderNumber: orderNum + 1,
+    orderNumber: orderNum,
     orderDate: date,
     customerId: customer,
     cart: cartArray,
   });
   c1.save();
+});
+
+router.get("/top5marbles", function (req, res) {
+  Cart.find({})
+    .sort({ purchaseTimes: -1 })
+    .then((marble) => {
+      const top5 = [];
+      top5[0] = marble[0].marble[0];
+      for (const m of marble) {
+        console.log(m.marble[0]);
+        const isExiset = top5.find((top) => {
+          // console.log(top.marble);
+          top == m.marble[0];
+        });
+        if (!isExiset) {
+          top5.push(m);
+        }
+        if (top5.length > 5) {
+          break;
+        }
+        res.send(top5);
+      }
+    });
 });
 
 router.get("/marblesAddedToCart", async function (req, res) {
