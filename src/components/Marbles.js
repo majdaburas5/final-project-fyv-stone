@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { marblesFromDB, filteredMarbles} from "../api";
 import FilterButton from "./FilterButton";
+import { Button } from "react-bootstrap";
 
 export default function Marbles({ updateCartArray, cartArray , isLoggedIn}) {
   const [marbles, setMarbles] = useState([]);
@@ -37,28 +38,30 @@ export default function Marbles({ updateCartArray, cartArray , isLoggedIn}) {
   };
 
   const handleFilterChange = (value, filterName) => {
-
-    let filterObj = {}
-    let sortObject = {}
+    let newMarbles = [...marbles]
       if (value === "A - Z") {
-        sortObject.name = 1
+        newMarbles.sort((a, b) => a.name.localeCompare(b.name))
       }
       else if (value === "Z - A") {
-        sortObject.name = -1
+        newMarbles.sort((a, b) => b.name.localeCompare(a.name))
       }
       else if (value === "High to Low") {
-        sortObject.price = -1
+        newMarbles.sort((a, b) => b.price - a.price)
       }
       else if (value === "Low to High"){
-        sortObject.price = 1
+        newMarbles.sort((a, b) => a.price - b.price)
       }
-      else {
-        filterObj[filterName] = value
+      else if(filterName == "type" || filterName == "style") {
+        newMarbles = newMarbles.filter((product) => product[filterName] === value);
       }
-      filteredMarbles({filterObj, sortObject}).then((res) => {
-        setMarbles(res);
-      })
+      setMarbles(newMarbles);
   };
+
+  const cancelFilter = () => {
+    marblesFromDB().then((res) => {
+      setMarbles(res);
+    });
+  }
 
   const cart = (id, quantity) => {
     const marble = marbles.find((m) => m._id === id);
@@ -100,6 +103,7 @@ export default function Marbles({ updateCartArray, cartArray , isLoggedIn}) {
       return(
        <FilterButton handleFilterChange={handleFilterChange} filterName={f} />
     )})}
+    <Button variant="filter" onClick={cancelFilter}>Clear Filter</Button>
   </div>
     <div className="cardContainer">
       {marbles &&
