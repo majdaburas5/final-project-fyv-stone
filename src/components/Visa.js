@@ -16,6 +16,7 @@ export default function Visa({ sumPrice, cartArray, setCartArray }) {
     addItemToCart(cartArray, customerId);
     toast.success("Thanks for buying from us !");
   };
+ 
   return (
     <div className="App">
       <VisaCard onSubmit={pay} submitBtnTxt={`Total amount ${sumPrice} ₪`} />
