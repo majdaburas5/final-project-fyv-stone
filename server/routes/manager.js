@@ -2,6 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Marble = require("../models/marbleModel");
 const Manager = require("../models/managerModel");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const saltRounds = 10;
+const salt = bcrypt.genSaltSync(saltRounds);
+const secretKey = "my_secret_key";
 
 router.post("/addManager", function (req, res) {
   const id = req.body.id;
@@ -29,12 +34,46 @@ router.get("/getManagers", function (req, res) {
     res.send(manager);
   });
 });
+
 router.delete("/deleteMarble/:id", function (req, res) {
   let { id } = req.params;
   Marble.findOneAndDelete({ _id: id }).then((deleteMarble) =>
     res.send(deleteMarble)
   );
 });
+
+router.post("/loginManager", (req, res) => {
+  const { email, password } = req.body;
+  const user = authenticateUser(email, password);
+  user.then((user) => {
+    if (!user) {
+      console.log(user);
+
+      return res.status(401).send({ message: "Invalid username or password" });
+    }
+    const accessToken = generateAccessToken(user);
+    res.send({ accessToken });
+  });
+});
+
+async function authenticateUser(email, password) {
+  return Manager.find({}).then((users, err) => {
+    const managersArray = getManagersUsers(users);
+    const user = managersArray.find((u) => u.email === email);
+    if (!user) {
+      return null;
+    }
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
+    if (!isPasswordValid) {
+      return null;
+    }
+    return { id: user.id, email: user.email };
+  });
+}
+
+function generateAccessToken(user) {
+  return jwt.sign(user, secretKey);
+}
 
 router.put("/updateMarble/:id", function (req, res) {
   const { id } = req.params;
@@ -53,6 +92,44 @@ router.put("/updateMarble/:id", function (req, res) {
       res.status(500).send({ message: "Internal server error" });
     });
 });
+
+const getManagersUsers = function (users) {
+  const usersArray = users.map((user) => user.toObject());
+  return usersArray;
+};
+
+router.post("/managerUser", (req, res) => {
+  console.log(req.body);
+  const manager = new Manager(req.body);
+  console.log(manager);
+  Manager.find({}).then((users, err) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      const managersArray = getManagersUsers(users);
+      if (existUser(managersArray, manager.email) || manager.email === "") {
+        return res.status(401).send(`invalid username '${manager.email}'`);
+      } else {
+        const hashedPassword = bcrypt.hashSync(manager.password, salt);
+        manager.password = hashedPassword;
+        const savedUser = manager.save();
+        return res.status(201).json(savedUser);
+      }
+    }
+  });
+});
+
+
+const existUser = function (usersArray, email) {
+  let flag = false;
+  const findUser = usersArray.find((user) => {
+    if (user.email === email) {
+      flag = true;
+    }
+  });
+
+  return flag;
+};
 
 router.post("/addMarble", function (req, res) {
   const code = req.body.code;

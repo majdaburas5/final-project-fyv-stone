@@ -107,6 +107,20 @@ export async function loginUser(user) {
   // await axios.post(`${URL}/login`, user);
 }
 
+export async function loginManagerUser(user) {
+    axios.post(`${URL}/loginManager`, user)
+  .then(response => {
+      localStorage.setItem('token', response.data.accessToken);
+  })
+  .catch(error => {
+      if (error.response && error.response.status === 401) {
+          console.log('Unauthorized error:', error);
+      } else {
+          console.log('Request failed:', error);
+      }
+  });
+}
+
 export async function getCustomers(user) {
   return await axios.get(`${URL}/customers`, user);
 }
@@ -125,13 +139,13 @@ export async function logout(setIsLoggedIn, navigate) {
       headers: { Authorization: `Bearer ${token}` },
     });
     localStorage.removeItem('token');
-    // localStorage.setItem("authenticated", false);
     setIsLoggedIn(false);
     navigate("/");
   } catch (err) {
     console.error(err);
   }
 }
+
 export async function getCustomerOrder(orderNumber) {
   const response = await axios.get(`${URL}/getCustomerOrder/${orderNumber}`);
   return response.data;
@@ -146,3 +160,20 @@ export async function getMarbleFilterValues(filterName) {
   const response = await axios.get(`${URL}/marbles/${filterName}`);
   return response.data;
 }
+
+export async function getUserData() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return Promise.reject(new Error('No access token found'));
+  }
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
+  const response = await axios.get(`${URL}/user`, config)
+  return response.data
+}
+
+
+
+
+

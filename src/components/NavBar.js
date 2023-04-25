@@ -78,7 +78,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/marbles" className="products">
+                <Link to="/products" className="products">
                   Products
                 </Link>
               </Nav.Link>

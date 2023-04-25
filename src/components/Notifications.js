@@ -1,20 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { getSpecificCustomerOrder } from "../api";
+import { getUserData } from "../api";
+
 
 export default function Notifications() {
-  const customerId = "211263819";
+  
+
+  const [userData, setUserData] = useState(null);
   const [specificCustomerOrder, setSpecificCustomerOrder] = useState([]);
 
   useEffect(() => {
-    const fetchCustomerOrder = async () => {
-      getSpecificCustomerOrder(customerId).then((res) => {
-        setSpecificCustomerOrder(res);
-      });
-    };
-    fetchCustomerOrder();
+    async function fetchData() {
+      try {
+        const data = await getUserData();
+        setUserData(data);
+      } catch (error) {
+        console.error('Error getting user data:', error);
+      }
+    }
+    fetchData();
   }, []);
 
-  console.log(specificCustomerOrder);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const customerId = userData && userData.user.id;
+        const data = await getSpecificCustomerOrder(customerId);
+        setSpecificCustomerOrder(data);
+        console.log(customerId);
+      } catch (error) {
+        console.error('Error getting customer order:', error);
+      }
+    }
+
+    if (userData) {
+      fetchData();
+    }
+  }, [userData]);
+
 
   return (
     <div>
