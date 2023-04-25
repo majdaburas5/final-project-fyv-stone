@@ -63,6 +63,13 @@ router.get("/showMarbleByColor/:color", function (req, res) {
   });
 });
 
+router.get("/marble/:id", function (req, res) {
+  let id = req.params.id;
+  Marble.find({ _id: id }).then((marble) => {
+    res.send(marble);
+  });
+});
+
 router.delete("/deleteMarble/:id", function (req, res) {
   let id = req.params.id;
   Marble.findOneAndDelete({ _id: id }).then((deleteMarble) =>
