@@ -9,14 +9,14 @@ import TextField from "@mui/material/TextField";
 import "../css/Marbles.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { marblesFromDB, filteredMarbles} from "../api";
+import { marblesFromDB, filteredMarbles } from "../api";
 import FilterButton from "./FilterButton";
 
-export default function Marbles({ updateCartArray, cartArray , isLoggedIn}) {
+export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   const [marbles, setMarbles] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
-  const filterBy = ["type", "name", "style", "price"]
+  const filterBy = ["type", "name", "style", "price"];
 
   useEffect(() => {
     marblesFromDB().then((res) => {
@@ -37,27 +37,22 @@ export default function Marbles({ updateCartArray, cartArray , isLoggedIn}) {
   };
 
   const handleFilterChange = (value, filterName) => {
-
-    let filterObj = {}
-    let sortObject = {}
-      if (value === "A - Z") {
-        sortObject.name = 1
-      }
-      else if (value === "Z - A") {
-        sortObject.name = -1
-      }
-      else if (value === "High to Low") {
-        sortObject.price = -1
-      }
-      else if (value === "Low to High"){
-        sortObject.price = 1
-      }
-      else {
-        filterObj[filterName] = value
-      }
-      filteredMarbles({filterObj, sortObject}).then((res) => {
-        setMarbles(res);
-      })
+    let filterObj = {};
+    let sortObject = {};
+    if (value === "A - Z") {
+      sortObject.name = 1;
+    } else if (value === "Z - A") {
+      sortObject.name = -1;
+    } else if (value === "High to Low") {
+      sortObject.price = -1;
+    } else if (value === "Low to High") {
+      sortObject.price = 1;
+    } else {
+      filterObj[filterName] = value;
+    }
+    filteredMarbles({ filterObj, sortObject }).then((res) => {
+      setMarbles(res);
+    });
   };
 
   const cart = (id, quantity) => {
@@ -95,89 +90,75 @@ export default function Marbles({ updateCartArray, cartArray , isLoggedIn}) {
 
   return (
     <>
-    <div className="filter-bar-container">
-    {filterBy.map(f=>{
-      return(
-       <FilterButton handleFilterChange={handleFilterChange} filterName={f} />
-    )})}
-  </div>
-    <div className="cardContainer">
-      {marbles &&
-        marbles.map((m, index) => {
-          const quantity =
-            quantities.find((item) => item.id === m._id)?.quantity || 0;
+      <div className="filter-bar-container">
+        {filterBy.map((f) => {
           return (
-            <Card sx={{ maxWidth: 345 }} className="card" key={index}>
-              <CardMedia
-                sx={{ height: 200 }}
-                image={m.img}
-                title={m.name}
-                onClick={() => setSelectedMarbleImg(m.img)}
-              />
-              {selectedMarbleImg && (
-                <MarbleImageModal
-                  imgUrl={selectedMarbleImg}
-                  onClose={() => setSelectedMarbleImg("")}
-                />
-              )}
-              <CardContent className="font">
-                <Typography gutterBottom variant="h5" component="div">
-                  {m.name}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  <i
-                    class="fa-solid fa-tag fa-rotate-90 fa"
-                    style={{ color: "black" }}
-                  ></i>{" "}
-                  {m.price} ₪
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  <i class="fa-light fa-bars fa" style={{ color: "black" }}></i>{" "}
-                  {m.code}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  <i class="fa-solid fa-fire-flame-simple"></i> {m.style}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  <i class="fa-light fa-gem fa" style={{ color: "black" }}></i>{" "}
-                  {m.type}
-                </Typography>
-              </CardContent>
-                {isLoggedIn ? (
-                  <>
-              <TextField
-                id={`quantity_${m._id}`}
-                label="Quantity"
-                type="number"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(event) =>
-                  handleQuantityChange(m._id, event.target.value)
-                }
-                value={quantity}
-                style={{
-                  width: "250px",
-                  paddingLeft: "80px",
-                }}
-                placeholder="insert your quantity"
-              />
-              <br />
-              <button
-                type="submit"
-                class="btn btn-dark"
-                onClick={() => {
-                  cart(m._id, quantity);
-                }}
-              >
-                Add To Cart
-              </button>
-              </>
-                ):(null)}
-            </Card>
+            <FilterButton
+              handleFilterChange={handleFilterChange}
+              filterName={f}
+            />
           );
         })}
-    </div>
+      </div>
+      <div className="cardContainer">
+        {marbles &&
+          marbles.map((m, index) => {
+            const quantity =
+              quantities.find((item) => item.id === m._id)?.quantity || 0;
+            return (
+              <div className="card" key={index}>
+                <div
+                  className="card-media-wrapper"
+                  onClick={() => setSelectedMarbleImg(m.img)}
+                >
+                  <div
+                    className="card-media"
+                    style={{ backgroundImage: `url(${m.img})` }}
+                  >
+                    <h4 className="card-title">{m.name}</h4>
+                  </div>
+                </div>
+                {selectedMarbleImg && (
+                  <MarbleImageModal
+                    imgUrl={selectedMarbleImg}
+                    onClose={() => setSelectedMarbleImg("")}
+                  />
+                )}
+                <div className="card-content">
+                  <div className="card-info">
+                    <h5 className="card-price">{m.price} ₪</h5>
+                    <h5 className="card-style">{m.style}</h5>
+                    <h5 className="card-type">{m.type}</h5>
+                  </div>
+                  {isLoggedIn ? (
+                    <>
+                      <label>Quantity:</label>
+                      <input
+                        id={`quantity_${m._id}`}
+                        type="number"
+                        value={quantity}
+                        onChange={(event) =>
+                          handleQuantityChange(m._id, event.target.value)
+                        }
+                        placeholder="insert your quantity"
+                      />
+                      <br />
+                      <button
+                        type="submit"
+                        className="btn btn-dark"
+                        onClick={() => {
+                          cart(m._id, quantity);
+                        }}
+                      >
+                        Add To Cart
+                      </button>
+                    </>
+                  ) : null}
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </>
   );
 }
