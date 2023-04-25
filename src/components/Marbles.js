@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { marblesFromDB, filteredMarbles } from "../api";
 import FilterButton from "./FilterButton";
+import { Button } from "react-bootstrap";
 
 export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   const [marbles, setMarbles] = useState([]);
