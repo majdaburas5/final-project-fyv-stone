@@ -37,22 +37,30 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   };
 
   const handleFilterChange = (value, filterName) => {
-    let filterObj = {};
-    let sortObject = {};
-    if (value === "A - Z") {
-      sortObject.name = 1;
-    } else if (value === "Z - A") {
-      sortObject.name = -1;
-    } else if (value === "High to Low") {
-      sortObject.price = -1;
-    } else if (value === "Low to High") {
-      sortObject.price = 1;
-    } else {
-      filterObj[filterName] = value;
-    }
-    filteredMarbles({ filterObj, sortObject }).then((res) => {
+    let newMarbles = [...marbles]
+      if (value === "A - Z") {
+        newMarbles.sort((a, b) => a.name.localeCompare(b.name))
+      }
+      else if (value === "Z - A") {
+        newMarbles.sort((a, b) => b.name.localeCompare(a.name))
+      }
+      else if (value === "High to Low") {
+        newMarbles.sort((a, b) => b.price - a.price)
+      }
+      else if (value === "Low to High"){
+        newMarbles.sort((a, b) => a.price - b.price)
+      }
+      else if(filterName == "type" || filterName == "style") {
+        newMarbles = newMarbles.filter((product) => product[filterName] === value);
+      }
+      setMarbles(newMarbles);
+  };
+
+  const cancelFilter = () => {
+    marblesFromDB().then((res) => {
       setMarbles(res);
     });
+ 
   };
 
   const cart = (id, quantity) => {
@@ -90,16 +98,13 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
 
   return (
     <>
-      <div className="filter-bar-container">
-        {filterBy.map((f) => {
-          return (
-            <FilterButton
-              handleFilterChange={handleFilterChange}
-              filterName={f}
-            />
-          );
-        })}
-      </div>
+        <div className="filter-bar-container">
+    {filterBy.map(f=>{
+      return(
+       <FilterButton handleFilterChange={handleFilterChange} filterName={f} />
+    )})}
+    <Button variant="filter" onClick={cancelFilter}>Clear Filter</Button>
+  </div>
       <div className="cardContainer">
         {marbles &&
           marbles.map((m, index) => {
