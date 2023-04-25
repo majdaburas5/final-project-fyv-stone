@@ -3,12 +3,12 @@ import { useHistory } from "react-router-dom";
 const URL = "http://localhost:3001";
 
 export async function marblesFromDB() {
-  const token = localStorage.getItem("token");
-  const response = await axios.get(`${URL}/getMarbles`, {
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
-  });
+  // const token = localStorage.getItem("token");
+  const response = await axios.get(`${URL}/getMarbles`)
+    // headers: {
+    //   'Authorization': 'Bearer ' + token
+    // }
+  // });
   return response.data;
 }
 
