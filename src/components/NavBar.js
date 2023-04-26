@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
@@ -22,13 +22,13 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
     });
   }, []);
 
-  const checkManagerUser = (email)=>{
-    const managersEmails = managers.map(manager =>manager.email)
-    if (!managersEmails.includes(email)){
-      return false
+  const checkManagerUser = (email) => {
+    const managersEmails = managers.map((manager) => manager.email);
+    if (!managersEmails.includes(email)) {
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const logoutUser = () => {
     logout(setIsLoggedIn, navigate);
@@ -36,8 +36,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
   };
   return (
     <>
-      {
-      isLoggedIn  ? (
+      {isLoggedIn ? (
         <Navbar bg="dark" variant="dark">
           <Container>
             <Navbar.Brand>FYV STONE</Navbar.Brand>
