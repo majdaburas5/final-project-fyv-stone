@@ -1,16 +1,11 @@
-.cardContainer {
+.card-byColor-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(345px, 1fr));
-  grid-gap: 50px;
+  grid-gap: 20px;
+  justify-content: space-between;
 }
 
-@media (max-width: 768px) {
-  .cardContainer {
-    grid-template-columns: 1fr;
-  }
-}
-
-.card {
+.card-byColor {
   max-width: 345px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -24,7 +19,7 @@
     "content";
 }
 
-.card-media {
+.card-byColor-media {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -32,12 +27,11 @@
   transition: transform 0.7s ease-out;
 }
 
-.card-media:hover {
+.card-byColor-media:hover {
   transform: scale(1.9);
 }
 
-.card-title {
-  position: absolute;
+.card-byColor-title {
   top: 0;
   left: 0;
   width: 100%;
@@ -48,7 +42,7 @@
   text-align: center;
 }
 
-.card-content {
+.card-byColor-content {
   grid-area: content;
   padding: 10px;
   display: flex;
@@ -56,54 +50,27 @@
   justify-content: space-between;
 }
 
-.card-info {
+.card-byColor-info {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   gap: 20px;
 }
 
-.card-price {
+.card-byColor-price {
   margin: 0;
   font-weight: bold;
   text-align: center;
 }
 
-.card-style {
+.card-byColor-style {
   margin: 0;
   font-weight: bold;
   text-align: center;
 }
 
-.card-type {
+.card-byColor-type {
   margin: 0;
   text-align: center;
-  font-weight: bold;
-}
-
-input[type="number"] {
-  margin-left: 110px;
-  width: 100px;
-  height: 34px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #f2f2f2;
-  font-size: 16px;
-  color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  background-color: #333;
-}
-
-input[type="number"]:focus {
-  outline: none;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  background-color: #fff;
-  color: #000;
-}
-
-label {
-  margin-top: 7px;
   font-weight: bold;
 }

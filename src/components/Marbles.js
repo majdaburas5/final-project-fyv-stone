@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import "../css/Products.css";
 import { addToCart } from "../api";
-import TextField from "@mui/material/TextField";
 import "../css/Marbles.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +11,6 @@ import { Button } from "react-bootstrap";
 export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userType }) {
   const [marbles, setMarbles] = useState([]);
   const [quantities, setQuantities] = useState([]);
-  const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
   const filterBy = ["type", "name", "style", "price"];
 
   useEffect(() => {
@@ -38,30 +32,27 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userTyp
   };
 
   const handleFilterChange = (value, filterName) => {
-    let newMarbles = [...marbles]
-      if (value === "A - Z") {
-        newMarbles.sort((a, b) => a.name.localeCompare(b.name))
-      }
-      else if (value === "Z - A") {
-        newMarbles.sort((a, b) => b.name.localeCompare(a.name))
-      }
-      else if (value === "High to Low") {
-        newMarbles.sort((a, b) => b.price - a.price)
-      }
-      else if (value === "Low to High"){
-        newMarbles.sort((a, b) => a.price - b.price)
-      }
-      else if(filterName == "type" || filterName == "style") {
-        newMarbles = newMarbles.filter((product) => product[filterName] === value);
-      }
-      setMarbles(newMarbles);
+    let newMarbles = [...marbles];
+    if (value === "A - Z") {
+      newMarbles.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (value === "Z - A") {
+      newMarbles.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (value === "High to Low") {
+      newMarbles.sort((a, b) => b.price - a.price);
+    } else if (value === "Low to High") {
+      newMarbles.sort((a, b) => a.price - b.price);
+    } else if (filterName == "type" || filterName == "style") {
+      newMarbles = newMarbles.filter(
+        (product) => product[filterName] === value
+      );
+    }
+    setMarbles(newMarbles);
   };
 
   const cancelFilter = () => {
     marblesFromDB().then((res) => {
       setMarbles(res);
     });
- 
   };
 
   const cart = (id, quantity) => {
@@ -84,28 +75,22 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userTyp
 
     return cartArray;
   };
-  const MarbleImageModal = ({ imgUrl, onClose }) => {
-    return (
-      <div className="marble-image-modal">
-        <div className="modal-content">
-          <img src={imgUrl} />
-          <button className="close-btn" onClick={onClose}>
-            Close
-          </button>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <>
-        <div className="filter-bar-container">
-    {filterBy.map(f=>{
-      return(
-       <FilterButton handleFilterChange={handleFilterChange} filterName={f} />
-    )})}
-    <Button variant="filter" onClick={cancelFilter}>Clear Filter</Button>
-  </div>
+      <div className="filter-bar-container">
+        {filterBy.map((f) => {
+          return (
+            <FilterButton
+              handleFilterChange={handleFilterChange}
+              filterName={f}
+            />
+          );
+        })}
+        <Button variant="filter" onClick={cancelFilter}>
+          Clear Filter
+        </Button>
+      </div>
       <div className="cardContainer">
         {marbles &&
           marbles.map((m, index) => {
@@ -113,10 +98,7 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userTyp
               quantities.find((item) => item.id === m._id)?.quantity || 0;
             return (
               <div className="card" key={index}>
-                <div
-                  className="card-media-wrapper"
-                  onClick={() => setSelectedMarbleImg(m.img)}
-                >
+                <div className="card-media-wrapper">
                   <div
                     className="card-media"
                     style={{ backgroundImage: `url(${m.img})` }}
@@ -124,12 +106,6 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userTyp
                     <h4 className="card-title">{m.name}</h4>
                   </div>
                 </div>
-                {selectedMarbleImg && (
-                  <MarbleImageModal
-                    imgUrl={selectedMarbleImg}
-                    onClose={() => setSelectedMarbleImg("")}
-                  />
-                )}
                 <div className="card-content">
                   <div className="card-info">
                     <h5 className="card-price">{m.price} ₪</h5>
@@ -159,7 +135,9 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userTyp
                         Add To Cart
                       </button>
                     </>
-                  ) : null}
+                  ) : (
+                    <div> </div>
+                  )}
                 </div>
               </div>
             );

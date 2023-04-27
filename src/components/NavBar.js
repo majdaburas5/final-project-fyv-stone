@@ -10,6 +10,7 @@ import { getUserData } from "../api";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "../css/NavBar.css";
 import { toast } from "react-toastify";
+import { ManagersFromDB } from "../api";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function NavBar({ userType,isLoggedIn, setIsLoggedIn }) {

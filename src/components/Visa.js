@@ -15,7 +15,7 @@ export default function Visa({ sumPrice, cartArray, setCartArray }) {
     });
   }, []);
 
-  const customerId = userData && userData.id;
+  const customerId = userData && userData.user.id;
 
   const pay = (e, data) => {
     console.log(data);
