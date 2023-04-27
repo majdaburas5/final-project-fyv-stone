@@ -6,11 +6,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { marblesFromDB, filteredMarbles } from "../api";
 import FilterButton from "./FilterButton";
+import { Button } from "react-bootstrap";
 
 export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   const [marbles, setMarbles] = useState([]);
   const [quantities, setQuantities] = useState([]);
-  const [selectedMarbleImg, setSelectedMarbleImg] = useState("");
   const filterBy = ["type", "name", "style", "price"];
 
   useEffect(() => {
@@ -32,20 +32,25 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   };
 
   const handleFilterChange = (value, filterName) => {
-    let filterObj = {};
-    let sortObject = {};
+    let newMarbles = [...marbles];
     if (value === "A - Z") {
-      sortObject.name = 1;
+      newMarbles.sort((a, b) => a.name.localeCompare(b.name));
     } else if (value === "Z - A") {
-      sortObject.name = -1;
+      newMarbles.sort((a, b) => b.name.localeCompare(a.name));
     } else if (value === "High to Low") {
-      sortObject.price = -1;
+      newMarbles.sort((a, b) => b.price - a.price);
     } else if (value === "Low to High") {
-      sortObject.price = 1;
-    } else {
-      filterObj[filterName] = value;
+      newMarbles.sort((a, b) => a.price - b.price);
+    } else if (filterName == "type" || filterName == "style") {
+      newMarbles = newMarbles.filter(
+        (product) => product[filterName] === value
+      );
     }
-    filteredMarbles({ filterObj, sortObject }).then((res) => {
+    setMarbles(newMarbles);
+  };
+
+  const cancelFilter = () => {
+    marblesFromDB().then((res) => {
       setMarbles(res);
     });
   };
@@ -70,18 +75,6 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
 
     return cartArray;
   };
-  const MarbleImageModal = ({ imgUrl, onClose }) => {
-    return (
-      <div className="marble-image-modal">
-        <div className="modal-content">
-          <img src={imgUrl} />
-          <button className="close-btn" onClick={onClose}>
-            Close
-          </button>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -94,6 +87,9 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
             />
           );
         })}
+        <Button variant="filter" onClick={cancelFilter}>
+          Clear Filter
+        </Button>
       </div>
       <div className="cardContainer">
         {marbles &&
@@ -102,10 +98,7 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
               quantities.find((item) => item.id === m._id)?.quantity || 0;
             return (
               <div className="card" key={index}>
-                <div
-                  className="card-media-wrapper"
-                  onClick={() => setSelectedMarbleImg(m.img)}
-                >
+                <div className="card-media-wrapper">
                   <div
                     className="card-media"
                     style={{ backgroundImage: `url(${m.img})` }}
@@ -113,12 +106,6 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
                     <h4 className="card-title">{m.name}</h4>
                   </div>
                 </div>
-                {selectedMarbleImg && (
-                  <MarbleImageModal
-                    imgUrl={selectedMarbleImg}
-                    onClose={() => setSelectedMarbleImg("")}
-                  />
-                )}
                 <div className="card-content">
                   <div className="card-info">
                     <h5 className="card-price">{m.price} ₪</h5>
@@ -148,7 +135,9 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
                         Add To Cart
                       </button>
                     </>
-                  ) : null}
+                  ) : (
+                    <div> </div>
+                  )}
                 </div>
               </div>
             );

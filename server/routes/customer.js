@@ -26,7 +26,6 @@ router.post("/customerUser", (req, res) => {
       } else {
         const hashedPassword = bcrypt.hashSync(customer.password, salt);
         customer.password = hashedPassword;
-        // console.log(user.password);
         const savedUser = customer.save();
         return res.status(201).json(savedUser);
       }
@@ -44,6 +43,25 @@ const existUser = function (usersArray, email) {
 
   return flag;
 };
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.sendStatus(401);
+    }
+
+    req.user = decoded;
+
+    next();
+  });
+}
 
 async function authenticateUser(email, password) {
   return Customer.find({}).then((users, err) => {
@@ -66,7 +84,6 @@ function generateAccessToken(user) {
 
 router.post("/login", (req, res) => {
   // console.log();
-  console.log("asdasdas");
   const { email, password } = req.body;
   const user = authenticateUser(email, password);
   user.then((user) => {
@@ -74,7 +91,6 @@ router.post("/login", (req, res) => {
       return res.status(401).send({ message: "Invalid username or password" });
     }
     const accessToken = generateAccessToken(user);
-    console.log(accessToken);
     res.send({ accessToken });
   });
 });
@@ -83,6 +99,12 @@ router.post("/login", (req, res) => {
 router.post('/logout', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   res.status(200).send('Logged out successfully');
+});
+
+router.get('/user', authenticateToken, (req, res) => {
+  res.json({
+    user: req.user,
+  });
 });
 
 router.get("/customers", (req, res) => {

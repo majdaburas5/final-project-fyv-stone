@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +8,27 @@ import { logout } from "../api";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "../css/NavBar.css";
 import { toast } from "react-toastify";
+import { ManagersFromDB } from "../api";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
+
+  const [managers, setManagers] = useState([]);
+
+  useEffect(() => {
+    ManagersFromDB().then((managers, err) => {
+      setManagers(managers);
+    });
+  }, []);
+
+  const checkManagerUser = (email) => {
+    const managersEmails = managers.map((manager) => manager.email);
+    if (!managersEmails.includes(email)) {
+      return false;
+    }
+    return true;
+  };
 
   const logoutUser = () => {
     logout(setIsLoggedIn, navigate);
@@ -78,7 +95,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/marbles" className="products">
+                <Link to="/products" className="products">
                   Products
                 </Link>
               </Nav.Link>

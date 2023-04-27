@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { VisaCreditCard as VisaCard } from "react-fancy-visa-card";
 import { addItemToCart } from "../api";
 import { updateQuantity } from "../api";
+import { getUserData } from "../api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Visa({ sumPrice, cartArray, setCartArray }) {
-  const customerId = 211263819;
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    getUserData().then(data => {
+      setUserData(data);
+    }).catch(error => {
+      console.error('Error getting user data:', error);
+    });
+  }, []);
+
+  const customerId = userData && userData.user.id;
 
   const pay = (e, data) => {
     console.log(data);
