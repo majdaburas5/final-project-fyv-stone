@@ -24,7 +24,7 @@ router.get("/getMarbles", async function (req, res) {
   }
 });
 
-router.get("/getProducts", async function (req, res) {
+router.get("/getProducts",authenticateToken, async function (req, res) {
   try {
     Marble.find({}).then((marble) => {
       res.send(marble);
@@ -36,22 +36,22 @@ router.get("/getProducts", async function (req, res) {
 });
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    return res.status(401).send({ message: "Missing token" });
+    return res.sendStatus(401);
   }
 
-  try {
-    const decodedToken = jwt.verify(token, "my_secret_key");
-    const userId = decodedToken.userId;
-    req.userId = userId;
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.sendStatus(401);
+    }
+
+    req.user = decoded;
+
     next();
-  } catch (error) {
-    console.error("Error decoding token:", error);
-    return res.status(401).send({ message: "Invalid token" });
-  }
+  });
 }
 
 router.get("/showMarbleByColor/:color", function (req, res) {

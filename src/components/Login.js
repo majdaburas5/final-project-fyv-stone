@@ -10,7 +10,7 @@ import { ManagersFromDB } from "../api";
 
 const bcrypt = require("bcryptjs");
 
-export default function Login({ setIsLoggedIn }) {
+export default function Login({setUserType, setIsLoggedIn }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,6 +57,7 @@ export default function Login({ setIsLoggedIn }) {
           if (isPasswordValid) {
             setAuthenticated(true);
             localStorage.setItem("authenticated", true);
+            setUserType("manager")
             setIsLoggedIn(true);
             navigate("/manager/home-page");
             toast.success("Logged in successfully");
@@ -72,6 +73,7 @@ export default function Login({ setIsLoggedIn }) {
           if (isPasswordValid) {
             setAuthenticated(true);
             localStorage.setItem("authenticated", true);
+            setUserType("customer")
             setIsLoggedIn(true);
             navigate("/");
             toast.success("Logged in successfully");

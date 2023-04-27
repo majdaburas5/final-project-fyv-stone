@@ -13,7 +13,7 @@ import { marblesFromDB, filteredMarbles } from "../api";
 import FilterButton from "./FilterButton";
 import { Button } from "react-bootstrap";
 
-export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
+export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userType }) {
   const [marbles, setMarbles] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [selectedMarbleImg, setSelectedMarbleImg] = useState("");

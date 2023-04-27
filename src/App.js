@@ -20,14 +20,17 @@ import AddNewMarble from "./manager-components/AddNewMarble";
 import Orders from "./manager-components/Orders";
 import OrderDetails from "./manager-components/OrderDetails";
 import { ToastContainer } from "react-toastify";
+import {ManagersFromDB} from './api'
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [cartArray, setCartArray] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token"));
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token")?true:false);
+  const [userType,setUserType] = useState("")
 
-  useEffect(() => {}, [isLoggedIn]);
+
+  useEffect(() => {}, [isLoggedIn,userType]);
 
   const updateCartArray = function (arr) {
     setCartArray(arr);
@@ -35,7 +38,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <NavBar userType = {userType} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <ToastContainer />
         <br />
         <Routes>
@@ -56,7 +59,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route
             path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+            element={<Login setUserType ={setUserType} setIsLoggedIn={setIsLoggedIn} />}
           />
           <Route path="/signup" element={<SignUp />} />
           <Route
@@ -66,6 +69,7 @@ function App() {
                 updateCartArray={updateCartArray}
                 cartArray={cartArray}
                 isLoggedIn={isLoggedIn}
+                userType={userType}
               />
             }
           />
