@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import "../css/Products.css";
 import { addToCart } from "../api";
-import TextField from "@mui/material/TextField";
 import "../css/Marbles.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
