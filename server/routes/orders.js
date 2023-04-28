@@ -165,9 +165,7 @@ router.get("/getCustomerOrder/:orderNumber", async function (req, res) {
 
 router.get("/getSpecificCustomerOrder/:customerId", async function (req, res) {
   let { customerId } = req.params;
-  console.log("id for user is "+customerId);
   const user = await getCustomerById(customerId);
-  console.log(user._id);
   Order.find({ customerId: user._id })
     .populate({
       path: "cart",
@@ -177,7 +175,6 @@ router.get("/getSpecificCustomerOrder/:customerId", async function (req, res) {
       },
     })
     .then((order) => {
-      console.log(order);
       res.send(order);
     })
     .catch((error) => {
