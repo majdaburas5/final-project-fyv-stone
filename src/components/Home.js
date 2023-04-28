@@ -3,7 +3,12 @@ import "../css/Home.css";
 import { Link } from "react-router-dom";
 import FAQs from "./FAQ";
 import Top5 from "./Top5";
+import {getTop5Marbles} from "../api"
+import { useEffect } from "react";
 const Home = () => {
+
+  const [topFiveMarbles, setTopFiveMarbles]= useState([])
+
   const slides = [
     {
       imageUrl:
@@ -35,6 +40,7 @@ const Home = () => {
     },
   ];
   const [index, setIndex] = useState(0);
+  
 
   const nextSlide = () => {
     if (index === slides.length - 1) {
@@ -79,6 +85,15 @@ const Home = () => {
     },
   ];
 
+  useEffect(() => {
+    const getBestSelling = async () => {
+      let bestSellingMarbles = await getTop5Marbles()
+      setTopFiveMarbles(bestSellingMarbles)
+      
+    } 
+    getBestSelling()
+  } , [])
+
   return (
     <div className="home">
       <div className="slide-container">
@@ -115,7 +130,7 @@ const Home = () => {
       <div className="faqs">
         <FAQs />
       </div>
-      <Top5 />
+      <Top5 marbles={topFiveMarbles}/>
     </div>
   );
 };

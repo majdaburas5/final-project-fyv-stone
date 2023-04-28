@@ -108,28 +108,30 @@ router.post("/cart/addToCart", async function (req, res) {
   c1.save();
 });
 
-router.get("/top5marbles", function (req, res) {
-  Cart.find({})
-    .sort({ purchaseTimes: -1 })
-    .then((marble) => {
-      const top5 = [];
-      top5[0] = marble[0].marble[0];
-      for (const m of marble) {
-        console.log(m.marble[0]);
-        const isExiset = top5.find((top) => {
-          // console.log(top.marble);
-          top == m.marble[0];
-        });
-        if (!isExiset) {
-          top5.push(m);
-        }
-        if (top5.length > 5) {
-          break;
-        }
-        res.send(top5);
-      }
-    });
-});
+// router.get("/top5marbles", function (req, res) {
+//   Cart.find({})
+//     .sort({ purchaseTimes: -1 })
+//     .then((marble) => {
+//       const top5 = [];
+//       top5[0] = marble[0].marble[0];
+//       for (const m of marble) {
+//         console.log(m.marble[0]);
+//         const isExiset = top5.find((top) => {
+//           // console.log(top.marble);
+//           top == m.marble[0];
+//         });
+//         if (!isExiset) {
+//           top5.push(m);
+//         }
+//         if (top5.length > 5) {
+//           break;
+//         }
+//         res.send(top5);
+//       }
+//     });
+// });
+
+
 
 router.get("/marblesAddedToCart", async function (req, res) {
   await Order.find({}).then((cart) => {
