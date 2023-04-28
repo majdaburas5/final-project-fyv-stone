@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Marble = require("../models/marbleModel");
 const Customer = require("../models/customerModel");
+const Cart = require("../models/cartModel");
 const jwt = require("jsonwebtoken");
 const secretKey = "my_secret_key";
+
 
 // const { findMarbleById } = require("../services/marbleService");
 
@@ -90,5 +92,25 @@ router.get("/marbles/:filter", function (req, res) {
     res.send(filtered);
   });
 });
+
+router.get("/top5marbles", async function (req, res) {
+  let top5Marbles = await Cart.aggregate([
+    { $unwind: "$marble" },
+    { $group: {
+        _id: "$marble",
+        maxPurchaseTime: { $max: "$purchaseTime" }
+      }
+    },
+    { $sort: { maxPurchaseTime: -1 } },
+    { $project: { _id: 1 } },
+    {$limit: 5}
+   ])
+   let marbleIds = top5Marbles.map(marble => marble._id);
+   let marbles = await Marble.find({ _id: { $in: marbleIds } });
+   if(!marbles){
+     res.status(401).send({message: "there is a problem"})
+   }
+   res.status(200).send(marbles)
+ })
 
 module.exports = router;

@@ -12,6 +12,10 @@ export async function marblesFromDB() {
   return response.data;
 }
 
+export async function getTop5Marbles() {
+  const response = await axios.get(`${URL}/top5marbles`)
+  return response.data;
+}
 
 export async function productsFromDB() {
   const response = await axios.get(`${URL}/getProducts`);
