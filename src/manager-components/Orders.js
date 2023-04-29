@@ -11,16 +11,16 @@ export default function Orders() {
   useEffect(() => {
     marblesAddedToCart().then((res) => {
       setOrders(res);
-      const promises = res.map((order) => getCustomer(order.customerId));
-      Promise.all(promises).then((customers) => {
-        const names = customers.map((customer) => customer[0].name);
-        const phones = customers.map((customer) => customer[0].phone);
+      const customerArray = [];
+      res.forEach((order) => customerArray.push(getCustomer(order.customerId)));
+      Promise.all(customerArray).then((customers) => {
+        const names = customers.map((customer) => customer.name);
+        const phones = customers.map((customer) => customer.phone);
         setCustomerNames(names);
         setCustomerPhones(phones);
       });
     });
   }, []);
-
   return (
     <div>
       <h1 className="order-title">Orders</h1>

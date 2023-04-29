@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
-import Opinion from "./components/Opinion"
+import Opinion from "./components/Opinion";
 import Cart from "./components/Cart";
 import Contact from "./components/Contact";
 import About from "./components/About";
@@ -20,17 +20,17 @@ import AddNewMarble from "./manager-components/AddNewMarble";
 import Orders from "./manager-components/Orders";
 import OrderDetails from "./manager-components/OrderDetails";
 import { ToastContainer } from "react-toastify";
-import {ManagersFromDB} from './api'
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [cartArray, setCartArray] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token")?true:false);
-  const [userType,setUserType] = useState("")
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("token") ? true : false
+  );
+  const [userType, setUserType] = useState("");
 
-
-  useEffect(() => {}, [isLoggedIn,userType]);
+  useEffect(() => {}, [isLoggedIn, userType]);
 
   const updateCartArray = function (arr) {
     setCartArray(arr);
@@ -38,7 +38,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar userType = {userType} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <NavBar
+          userType={userType}
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+        />
         <ToastContainer />
         <br />
         <Routes>
@@ -59,7 +63,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route
             path="/login"
-            element={<Login setUserType ={setUserType} setIsLoggedIn={setIsLoggedIn} />}
+            element={
+              <Login setUserType={setUserType} setIsLoggedIn={setIsLoggedIn} />
+            }
           />
           <Route path="/signup" element={<SignUp />} />
           <Route

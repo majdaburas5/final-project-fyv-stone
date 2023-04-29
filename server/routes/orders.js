@@ -151,6 +151,7 @@ router.get("/getCustomerOrder/:orderNumber", async function (req, res) {
 router.get("/getSpecificCustomerOrder/:customerId", async function (req, res) {
   let { customerId } = req.params;
   const user = await getCustomerById(customerId);
+  console.log(user);
   Order.find({ customerId: user._id })
     .populate({
       path: "cart",

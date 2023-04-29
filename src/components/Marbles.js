@@ -5,11 +5,11 @@ import { TextField } from "@mui/material";
 import "../css/Marbles.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { marblesFromDB, filteredMarbles } from "../api";
+import { marblesFromDB } from "../api";
 import FilterButton from "./FilterButton";
 import { Button } from "react-bootstrap";
 
-export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userType }) {
+export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   const [marbles, setMarbles] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,8 +22,8 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userTyp
   }, []);
 
   const filteredMarbles = marbles.filter((m) =>
-  m.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+    m.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleQuantityChange = (id, value) => {
     setQuantities((prevQuantities) => {
@@ -84,18 +84,19 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn,userTyp
 
   return (
     <>
-        <TextField  
-          id="outlined-controlled"
-          label="Search By Name"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+      <TextField
+        id="outlined-controlled"
+        label="Search By Name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <div className="filter-bar-container">
-        {filterBy.map((f) => {
+        {filterBy.map((f, index) => {
           return (
             <FilterButton
               handleFilterChange={handleFilterChange}
               filterName={f}
+              key={index}
             />
           );
         })}

@@ -35,42 +35,44 @@ export default function Cart({
     <div>
       <h1 className="cart-title">Cart</h1>
       <table className="cart-table">
-        <tr>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Total</th>
-          <th>Image</th>
-          <th>Action</th>
-        </tr>
-        {cartArray &&
-          cartArray.map((cart) => (
-            <tr key={cart.marble[0]._id}>
-              <td>{cart.marble[0].name}</td>
-              <td>{cart.quantity}</td>
-              <td>{cart.marble[0].price * cart.quantity} ₪</td>
-              <td>
-                <img
-                  src={cart.marble[0].img}
-                  alt={cart.marble[0].name}
-                  className="cart-image"
-                />
-              </td>
-              <td>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  startIcon={<DeleteIcon />}
-                  onClick={() => handleDelete(cart._id)}
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-        <tr>
-          <th>Total Amount</th>
-          <td>{sumPrice}₪</td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Image</th>
+            <th>Action</th>
+          </tr>
+          {cartArray &&
+            cartArray.map((cart) => (
+              <tr key={cart.marble[0]._id}>
+                <td>{cart.marble[0].name}</td>
+                <td>{cart.quantity}</td>
+                <td>{cart.marble[0].price * cart.quantity} ₪</td>
+                <td>
+                  <img
+                    src={cart.marble[0].img}
+                    alt={cart.marble[0].name}
+                    className="cart-image"
+                  />
+                </td>
+                <td>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => handleDelete(cart._id)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          <tr>
+            <th>Total Amount</th>
+            <td>{sumPrice}₪</td>
+          </tr>
+        </tbody>
       </table>
       <br />
       <em> We have a full 1 year warranty on our marble slabs</em>
