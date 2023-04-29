@@ -16,8 +16,6 @@ export default function OrderDetails() {
     fetchCustomerOrder();
   }, []);
 
-  console.log(customerOrder);
-
   return (
     <div>
       <h1 className="order-title">Customer Order</h1>
@@ -34,11 +32,13 @@ export default function OrderDetails() {
         <tbody>
           {customerOrder.length > 0 &&
             customerOrder[0].cart.map((order, index) => (
-              <tr>
+              <tr key={index}>
                 <td>{orderNumber}</td>
                 <td>{order.marble[0].name}</td>
                 <td>{order.marble[0].code}</td>
-                <img src={order.marble[0].img} className="img" alt="" />
+                <td>
+                  <img src={order.marble[0].img} className="img" alt="" />
+                </td>
                 <td>{order.quantity}</td>
               </tr>
             ))}

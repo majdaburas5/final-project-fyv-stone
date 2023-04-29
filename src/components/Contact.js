@@ -16,8 +16,8 @@ export default function Contact() {
 
   return (
     <div>
-      {managers.map((m) => (
-        <div className="contact-card">
+      {managers.map((m, index) => (
+        <div className="contact-card" key={index}>
           <Stack direction="row" spacing={2}>
             <Avatar
               alt="Remy Sharp"
