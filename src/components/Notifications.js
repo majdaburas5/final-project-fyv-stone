@@ -27,7 +27,6 @@ export default function Notifications() {
         const customerId = userData && userData.user.id;
         const data = await getSpecificCustomerOrder(customerId);
         setSpecificCustomerOrder(data);
-        console.log(customerId);
       } catch (error) {
         console.error('Error getting customer order:', error);
       }

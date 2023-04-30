@@ -1,42 +1,26 @@
-import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
-
+import ManagerNavbar from "../manager-components/ManagerNavbar";
 import Navbar from "react-bootstrap/Navbar";
 import { logout } from "../api";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../css/NavBar.css";
 import { toast } from "react-toastify";
-import { ManagersFromDB } from "../api";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
+export default function NavBar({ userType, isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
-
-  const [managers, setManagers] = useState([]);
-
-  useEffect(() => {
-    ManagersFromDB().then((managers, err) => {
-      setManagers(managers);
-    });
-  }, []);
-
-  const checkManagerUser = (email) => {
-    const managersEmails = managers.map((manager) => manager.email);
-    if (!managersEmails.includes(email)) {
-      return false;
-    }
-    return true;
-  };
-
   const logoutUser = () => {
     logout(setIsLoggedIn, navigate);
     toast.success("Logged out successfully");
   };
+
   return (
     <>
-      {isLoggedIn ? (
+      {isLoggedIn && userType === "manager" ? (
+        <ManagerNavbar logoutUser={logoutUser} setIsLoggedIn={setIsLoggedIn} />
+      ) : isLoggedIn && userType != "manager" ? (
         <Navbar bg="dark" variant="dark">
           <Container>
             <Navbar.Brand>FYV STONE</Navbar.Brand>
@@ -95,7 +79,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/products" className="products">
+                <Link to="/marbles" className="products">
                   Products
                 </Link>
               </Nav.Link>

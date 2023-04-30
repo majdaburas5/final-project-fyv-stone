@@ -131,22 +131,22 @@ export default function CustomizedSlider() {
       <div className="sliders">
         <h1>GIVE YOUR OPINION</h1>
         <table>
-          <tr>
-            <th>
-              <Box sx={{ width: 270 }}>
-                <Typography gutterBottom>
-                  How Much Wall Effect In Percent ?
-                </Typography>
-                <PrettoSlider
-                  value={wallSliderValue}
-                  onChange={(event) => setWallSliderValue(event.target.value)}
-                  valueLabelDisplay="auto"
-                  aria-label="pretto slider"
-                  defaultValue={20}
-                />
-              </Box>
-            </th>
+          <tbody>
             <tr>
+              <th>
+                <Box sx={{ width: 270 }}>
+                  <Typography gutterBottom>
+                    How Much Wall Effect In Percent ?
+                  </Typography>
+                  <PrettoSlider
+                    value={wallSliderValue}
+                    onChange={(event) => setWallSliderValue(event.target.value)}
+                    valueLabelDisplay="auto"
+                    aria-label="pretto slider"
+                    defaultValue={20}
+                  />
+                </Box>
+              </th>
               <td>
                 <FormControl>
                   <RadioGroup
@@ -160,65 +160,69 @@ export default function CustomizedSlider() {
                 </FormControl>
               </td>
             </tr>
-          </tr>
-          <tr>
-            <th>
-              <Box sx={{ width: 270 }}>
-                <Typography gutterBottom>
-                  How Much Closet Effect In Percent ?
-                </Typography>
-                <PrettoSlider
-                  value={closetSliderValue}
-                  onChange={(event) => setClosetSliderValue(event.target.value)}
-                  valueLabelDisplay="auto"
-                  aria-label="pretto slider"
-                  defaultValue={20}
-                />
-              </Box>
-            </th>
             <tr>
-              {" "}
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                  onChange={(event) => setClosetColor(event.target.value)}
-                >
-                  <ColorsRadio />
-                </RadioGroup>
-              </FormControl>
+              <th>
+                <Box sx={{ width: 270 }}>
+                  <Typography gutterBottom>
+                    How Much Closet Effect In Percent ?
+                  </Typography>
+                  <PrettoSlider
+                    value={closetSliderValue}
+                    onChange={(event) =>
+                      setClosetSliderValue(event.target.value)
+                    }
+                    valueLabelDisplay="auto"
+                    aria-label="pretto slider"
+                    defaultValue={20}
+                  />
+                </Box>
+              </th>
+              <td>
+                {" "}
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    onChange={(event) => setClosetColor(event.target.value)}
+                  >
+                    <ColorsRadio />
+                  </RadioGroup>
+                </FormControl>
+              </td>
             </tr>
-          </tr>
-          <tr>
-            <th>
-              <Box sx={{ width: 270 }}>
-                <Typography gutterBottom>
-                  How Much Floor Effect In Percent ?
-                </Typography>
-                <PrettoSlider
-                  value={floorSliderValue}
-                  onChange={(event) => setFloorSliderValue(event.target.value)}
-                  valueLabelDisplay="auto"
-                  aria-label="pretto slider"
-                  defaultValue={20}
-                />
-              </Box>
-            </th>
             <tr>
-              {" "}
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                  onChange={(event) => setFloorColor(event.target.value)}
-                >
-                  <ColorsRadio />
-                </RadioGroup>
-              </FormControl>
+              <th>
+                <Box sx={{ width: 270 }}>
+                  <Typography gutterBottom>
+                    How Much Floor Effect In Percent ?
+                  </Typography>
+                  <PrettoSlider
+                    value={floorSliderValue}
+                    onChange={(event) =>
+                      setFloorSliderValue(event.target.value)
+                    }
+                    valueLabelDisplay="auto"
+                    aria-label="pretto slider"
+                    defaultValue={20}
+                  />
+                </Box>
+              </th>
+              <td>
+                {" "}
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    onChange={(event) => setFloorColor(event.target.value)}
+                  >
+                    <ColorsRadio />
+                  </RadioGroup>
+                </FormControl>
+              </td>
             </tr>
-          </tr>
+          </tbody>
         </table>
         <Stack direction="row" spacing={2}>
           <Button

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "../css/Products.css";
 import { addToCart } from "../api";
+import { TextField } from "@mui/material";
 import "../css/Marbles.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { marblesFromDB, filteredMarbles } from "../api";
+import { marblesFromDB } from "../api";
 import FilterButton from "./FilterButton";
 import { Button } from "react-bootstrap";
 
 export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   const [marbles, setMarbles] = useState([]);
   const [quantities, setQuantities] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const filterBy = ["type", "name", "style", "price"];
 
   useEffect(() => {
@@ -18,6 +20,10 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
       setMarbles(res);
     });
   }, []);
+
+  const filteredMarbles = marbles.filter((m) =>
+    m.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleQuantityChange = (id, value) => {
     setQuantities((prevQuantities) => {
@@ -78,12 +84,19 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
 
   return (
     <>
+      <TextField
+        id="outlined-controlled"
+        label="Search By Name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <div className="filter-bar-container">
-        {filterBy.map((f) => {
+        {filterBy.map((f, index) => {
           return (
             <FilterButton
               handleFilterChange={handleFilterChange}
               filterName={f}
+              key={index}
             />
           );
         })}
@@ -92,8 +105,8 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
         </Button>
       </div>
       <div className="cardContainer">
-        {marbles &&
-          marbles.map((m, index) => {
+        {filteredMarbles &&
+          filteredMarbles.map((m, index) => {
             const quantity =
               quantities.find((item) => item.id === m._id)?.quantity || 0;
             return (
