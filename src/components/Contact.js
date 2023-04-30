@@ -1,9 +1,6 @@
-import React from "react";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import { ManagersFromDB } from "../api";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Contact.css";
+import { ManagersFromDB } from "../api";
 
 export default function Contact() {
   const [managers, setManagers] = useState([]);
@@ -15,28 +12,28 @@ export default function Contact() {
   }, []);
 
   return (
-    <div>
-      {managers.map((m) => (
-        <div className="contact-card">
-          <Stack direction="row" spacing={2}>
-            <Avatar
-              alt="Remy Sharp"
-              src={m.pic}
-              sx={{ width: 200, height: 200 }}
-            />
-            <div>
-              <h3>{m.name}</h3>
+    <>
+      <h2 className="team-heading">Our Team</h2>
+      <div className="contact-list">
+        {managers.map((m) => (
+          <div key={m.id} className="contact-card">
+            <div className="avatar">
+              <img src={m.pic} alt={m.name} />
+            </div>
+            <div className="info">
+              <h3 className="name">{m.name}</h3>
               <div className="section">
-                <h3>{m.phone}</h3>
+                <h4 className="label">Phone:</h4>
+                <span className="value">{m.phone}</span>
               </div>
               <div className="section">
-                <h3>{m.city}</h3>
+                <h4 className="label">City:</h4>
+                <span className="value">{m.city}</span>
               </div>
             </div>
-          </Stack>
-          <br />
-        </div>
-      ))}
-    </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
