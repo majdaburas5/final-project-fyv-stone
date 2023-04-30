@@ -10,7 +10,7 @@ import { ManagersFromDB } from "../api";
 
 const bcrypt = require("bcryptjs");
 
-export default function Login({setUserType, setIsLoggedIn }) {
+export default function Login({ setUserType, setIsLoggedIn }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,9 +31,6 @@ export default function Login({setUserType, setIsLoggedIn }) {
     });
   }, []);
 
-
-  
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -48,48 +45,57 @@ export default function Login({setUserType, setIsLoggedIn }) {
     }
 
     if (email && password) {
-      if(checkManagerUser(email)){
+      if (checkManagerUser(email)) {
         loginManagerUser({ email: email, password: password });
         const account = managers.find((user) => user.email === email);
         if (account) {
-          const isPasswordValid = bcrypt.compareSync(password, account.password);
-  
-          if (isPasswordValid) {
-            setAuthenticated(true);
-            localStorage.setItem("authenticated", true);
-            setUserType("manager")
-            setIsLoggedIn(true);
-            navigate("/manager/home-page");
-            toast.success("Logged in successfully");
-          }
-        }
-      }
-      else{
-        loginUser({ email: email, password: password });
-        const account = users.find((user) => user.email === email);
-        if (account) {
-          const isPasswordValid = bcrypt.compareSync(password, account.password);
+          const isPasswordValid = bcrypt.compareSync(
+            password,
+            account.password
+          );
 
           if (isPasswordValid) {
             setAuthenticated(true);
             localStorage.setItem("authenticated", true);
-            setUserType("customer")
+            setUserType("manager");
+            setIsLoggedIn(true);
+            navigate("/manager/home-page");
+            toast.success("Logged in successfully");
+          } else {
+            toast.error("Invalid password. Please try again.");
+          }
+        }
+      } else {
+        loginUser({ email: email, password: password });
+        const account = users.find((user) => user.email === email);
+        if (account) {
+          const isPasswordValid = bcrypt.compareSync(
+            password,
+            account.password
+          );
+
+          if (isPasswordValid) {
+            setAuthenticated(true);
+            localStorage.setItem("authenticated", true);
+            setUserType("customer");
             setIsLoggedIn(true);
             navigate("/");
             toast.success("Logged in successfully");
           }
+        } else {
+          toast.error("Incorrect email , Please try again.");
         }
       }
-     }
+    }
   };
 
-  const checkManagerUser = (email)=>{
-    const managersEmails = managers.map(manager =>manager.email)
-    if (!managersEmails.includes(email)){
-      return false
+  const checkManagerUser = (email) => {
+    const managersEmails = managers.map((manager) => manager.email);
+    if (!managersEmails.includes(email)) {
+      return false;
     }
-    return true
-  }
+    return true;
+  };
   return (
     <React.Fragment>
       <form

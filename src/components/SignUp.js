@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { TextField, Button, Container, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-// import { notification } from 'antd';
-import "react-toastify/dist/ReactToastify.css";
 import { registerCustomerUser } from "../api";
-// import "../css/SignUp.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = () => {
   const [id, setId] = useState(0);
@@ -18,7 +16,7 @@ const RegisterForm = () => {
   function handleSubmit(event) {
     event.preventDefault();
     if (!checkEmail()) {
-      //   notify("email error");
+      toast.warning("Please enter a valid email address.");
       return;
     }
 
@@ -32,19 +30,14 @@ const RegisterForm = () => {
     };
     console.log(user);
     registerCustomerUser(user);
-    // notify("Signup successful!");
+    toast.success("Signup successful!");
   }
   const checkEmail = () => {
     const regexExp =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
     return regexExp.test(email);
   };
-  //   const notify = (message) => {
-  //     notification.success({
-  //       message: message,
-  //       description: "You have successfully signed up.",
-  //     });
-  //   };
+
   return (
     <React.Fragment>
       <h2>SignUp</h2>
