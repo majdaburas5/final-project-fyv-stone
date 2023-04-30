@@ -148,9 +148,7 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
                         Add To Cart
                       </button>
                     </>
-                  ) : (
-                    <div> </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
             );
