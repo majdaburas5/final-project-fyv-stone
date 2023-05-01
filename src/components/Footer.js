@@ -89,7 +89,7 @@ function Footer({ isLoggedIn }) {
                 <Link to="/about" className="products">
                   <li>About Us</li>
                 </Link>
-                <Link to="/products" className="products">
+                <Link to="/marbles" className="products">
                   <li>Products</li>
                 </Link>
                 <Link to="/contact" className="products">
