@@ -76,21 +76,25 @@ export default function Managment({ updateCartArray, cartArray }) {
                   {m.type}
                 </Typography>
               </CardContent>
-              <button
-                type="submit"
-                class="btn btn-dark"
-                onClick={() => {
-                  deleteToggle(m._id);
-                }}
+              <div
+                class="card-buttons"
+                style={{ display: "flex", gap: "10px" }}
               >
-                Delete
-              </button>
-              <br />
-              <Link to={`/edit/${m._id}`}>
-                <button type="submit" class="btn btn-dark">
-                  Update
+                <button
+                  type="submit"
+                  class="delete-button"
+                  onClick={() => {
+                    deleteToggle(m._id);
+                  }}
+                >
+                  Delete
                 </button>
-              </Link>
+                <Link to={`/edit/${m._id}`}>
+                  <button type="submit" class="ubdate-button">
+                    Update
+                  </button>
+                </Link>
+              </div>
             </Card>
           );
         })}

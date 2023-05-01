@@ -132,7 +132,8 @@ export default function CustomizedSlider() {
               <th>
                 <Box sx={{ width: 270 }}>
                   <Typography gutterBottom>
-                    How Much Wall Effect In Percent ?
+                    How Much<span style={{ fontWeight: "bold" }}> Wall </span>
+                    Effect In Percent ?
                   </Typography>
                   <PrettoSlider
                     value={wallSliderValue}
@@ -160,7 +161,8 @@ export default function CustomizedSlider() {
               <th>
                 <Box sx={{ width: 270 }}>
                   <Typography gutterBottom>
-                    How Much Closet Effect In Percent ?
+                    How Much<span style={{ fontWeight: "bold" }}> Closet </span>
+                    Effect In Percent ?
                   </Typography>
                   <PrettoSlider
                     value={closetSliderValue}
@@ -191,7 +193,8 @@ export default function CustomizedSlider() {
               <th>
                 <Box sx={{ width: 270 }}>
                   <Typography gutterBottom>
-                    How Much Floor Effect In Percent ?
+                    How Much<span style={{ fontWeight: "bold" }}> Floor </span>
+                    Effect In Percent ?
                   </Typography>
                   <PrettoSlider
                     value={floorSliderValue}
@@ -205,7 +208,6 @@ export default function CustomizedSlider() {
                 </Box>
               </th>
               <td>
-                {" "}
                 <FormControl>
                   <RadioGroup
                     row
