@@ -3,10 +3,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 
 import Navbar from "react-bootstrap/Navbar";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../css/NavBar.css";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function ManagerNavbar({ logoutUser }) {
   return (

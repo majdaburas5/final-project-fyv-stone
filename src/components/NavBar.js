@@ -20,7 +20,7 @@ export default function NavBar({ userType, isLoggedIn, setIsLoggedIn }) {
     <>
       {isLoggedIn && userType === "manager" ? (
         <ManagerNavbar logoutUser={logoutUser} setIsLoggedIn={setIsLoggedIn} />
-      ) : isLoggedIn && userType != "manager" ? (
+      ) : isLoggedIn && userType !== "manager" ? (
         <Navbar bg="dark" variant="dark">
           <Container>
             <Navbar.Brand className="me-auto">FYV STONE</Navbar.Brand>

@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(345px, 1fr));
   grid-gap: 20px;
-  justify-content: space-between;
+  justify-items: center;
 }
 
 .card-byColor {
