@@ -12,7 +12,7 @@ export default function Cart({
   setSumPrice,
 }) {
   const handleDelete = (id) => {
-    const index = cartArray.findIndex((cart) => cart.marble[0]._id === id);
+    const index = cartArray.findIndex((product) => product.marble._id === id);
 
     const updatedCartArray = [...cartArray];
     updatedCartArray.splice(index, 1);

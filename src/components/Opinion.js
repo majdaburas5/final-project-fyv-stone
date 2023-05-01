@@ -108,14 +108,10 @@ export default function CustomizedSlider() {
     const wallPercent = wallSliderValue / 100;
     const closetPercent = closetSliderValue / 100;
     const floorPercent = floorSliderValue / 100;
-    const wallColor = wallColorValue;
-    const closetColor = closetColorValue;
-    const floorColor = floorColorValue;
-    const sumPercents = wallPercent + closetPercent + floorPercent;
-
-    const wallResult = wallPercent * wallColor;
-    const closetResult = closetPercent * closetColor;
-    const floorResult = floorPercent * floorColor;
+    const sumPercents = Math.round(wallPercent + closetPercent + floorPercent);
+    const wallResult = wallPercent * wallColorValue;
+    const closetResult = closetPercent * closetColorValue;
+    const floorResult = floorPercent * floorColorValue;
     const matchResult = wallResult + closetResult + floorResult;
     const marbles = await showMarbleByColor(Math.round(matchResult));
     if (sumPercents === 1) {

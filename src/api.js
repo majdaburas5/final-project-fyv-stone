@@ -125,8 +125,9 @@ export async function loginManagerUser(user) {
   });
 }
 
-export async function getCustomers(user) {
-  return await axios.get(`${URL}/customers`, user);
+export async function getCustomers() {
+  const response = await axios.get(`${URL}/customers`);
+  return response.data;
 }
 
 export async function updateMarble(id, updatedPrice, updatedQuantity) {

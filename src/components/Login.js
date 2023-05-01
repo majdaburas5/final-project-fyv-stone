@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { TextField, FormControl, Button } from "@mui/material";
+import {  Fragment,useState } from "react";
+import { TextField, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,8 +7,8 @@ import { loginUser } from "../api";
 import { loginManagerUser } from "../api";
 import { getCustomers } from "../api";
 import { ManagersFromDB } from "../api";
+import * as bcrypt from 'bcryptjs'
 
-const bcrypt = require("bcryptjs");
 
 export default function Login({ setUserType, setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -16,36 +16,23 @@ export default function Login({ setUserType, setIsLoggedIn }) {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [authenticated, setAuthenticated] = useState(
-    localStorage.getItem(localStorage.getItem("authenticated") || false)
-  );
-  const [users, setUsers] = useState([]);
-  const [managers, setManagers] = useState([]);
 
-  useEffect(() => {
-    getCustomers().then((users, err) => {
-      setUsers(users.data);
-    });
-    ManagersFromDB().then((managers, err) => {
-      setManagers(managers);
-    });
-  }, []);
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const customers = await getCustomers()
+    const managers = await ManagersFromDB()
 
     setEmailError(false);
     setPasswordError(false);
 
-    if (email == "") {
+    if (!email) {
       setEmailError(true);
     }
-    if (password == "") {
+    if (!password) {
       setPasswordError(true);
     }
-
     if (email && password) {
-      if (checkManagerUser(email)) {
+      if (checkManagerUser(managers,email)) {
         loginManagerUser({ email: email, password: password });
         const account = managers.find((user) => user.email === email);
         if (account) {
@@ -55,7 +42,6 @@ export default function Login({ setUserType, setIsLoggedIn }) {
           );
 
           if (isPasswordValid) {
-            setAuthenticated(true);
             localStorage.setItem("authenticated", true);
             setUserType("manager");
             setIsLoggedIn(true);
@@ -69,7 +55,7 @@ export default function Login({ setUserType, setIsLoggedIn }) {
         }
       } else {
         loginUser({ email: email, password: password });
-        const account = users.find((user) => user.email === email);
+        const account = customers.find((user) => user.email === email);
         if (account) {
           const isPasswordValid = bcrypt.compareSync(
             password,
@@ -77,7 +63,6 @@ export default function Login({ setUserType, setIsLoggedIn }) {
           );
 
           if (isPasswordValid) {
-            setAuthenticated(true);
             localStorage.setItem("authenticated", true);
             setUserType("customer");
             setIsLoggedIn(true);
@@ -93,7 +78,7 @@ export default function Login({ setUserType, setIsLoggedIn }) {
     }
   };
 
-  const checkManagerUser = (email) => {
+  const checkManagerUser = (managers,email) => {
     const managersEmails = managers.map((manager) => manager.email);
     if (!managersEmails.includes(email)) {
       return false;
@@ -101,10 +86,10 @@ export default function Login({ setUserType, setIsLoggedIn }) {
     return true;
   };
   return (
-    <React.Fragment>
+    <Fragment>
       <form
         autoComplete="off"
-        onSubmit={handleSubmit}
+        onSubmit={(e)=>handleSubmit(e)}
         style={{ maxWidth: "500px", margin: "0 auto" }}
       >
         <h2>Login Page</h2>
@@ -139,6 +124,6 @@ export default function Login({ setUserType, setIsLoggedIn }) {
       <small>
         Need an account? <Link to="/signup">Register here</Link>
       </small>
-    </React.Fragment>
+    </Fragment>
   );
 }

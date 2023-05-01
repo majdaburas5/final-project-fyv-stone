@@ -14,7 +14,7 @@ export default function OrderDetails() {
       });
     };
     fetchCustomerOrder();
-  }, []);
+  }, [orderNumber]);
 
   return (
     <div>

@@ -64,19 +64,23 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
   const cart = (id, quantity) => {
     const marble = marbles.find((m) => m._id === id);
     addToCart(id).then((res) => {
-      if (cartArray.find((item) => item.marble[0].name === marble.name))
-        toast.success("Item has already been added to cart !");
-      else if (quantity <= 0) toast.error("There is no quantity added !");
+      if (cartArray.find((item) => item.marble[0].name === marble.name)){
+        toast.error("Item already exist in cart !");
+        return
+      }
+      else if (quantity <= 0) {
+        toast.error("There was no quantity selected !");
+        return
+      }
       else if (marble.quantity < quantity) {
         toast.warning(
-          "We dont have the required quantity we will order it for you !"
+          "We dont have the required quantity, we will order it for you !"
         );
-
-        updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
       } else {
-        updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
         toast.success("Item added !");
       }
+      updateCartArray([...cartArray, { marble: res, quantity: quantity }]);
+
     });
 
     return cartArray;
