@@ -62,8 +62,10 @@ export default function Login({ setUserType, setIsLoggedIn }) {
             navigate("/manager/home-page");
             toast.success("Logged in successfully");
           } else {
-            toast.error("Invalid password. Please try again.");
+            toast.error("Invalid password Please try again.");
           }
+        } else {
+          toast.error("Incorrect email Please try again.");
         }
       } else {
         loginUser({ email: email, password: password });
@@ -81,9 +83,11 @@ export default function Login({ setUserType, setIsLoggedIn }) {
             setIsLoggedIn(true);
             navigate("/");
             toast.success("Logged in successfully");
+          } else {
+            toast.error("Invalid password Please try again.");
           }
         } else {
-          toast.error("Incorrect email , Please try again.");
+          toast.error("Incorrect email Please try again.");
         }
       }
     }
