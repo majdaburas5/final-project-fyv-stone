@@ -15,7 +15,7 @@ const Home = () => {
         "https://rare-gallery.com/uploads/posts/850200-Interior-Design-Bathroom.jpg",
       title: "Explore Our Stunning Marble Collection",
       btnText: "Browse Our Marble Collection",
-      navigateTo: "/products",
+      navigateTo: "/marbles",
     },
     {
       imageUrl:
