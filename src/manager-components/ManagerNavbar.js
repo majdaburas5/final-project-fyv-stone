@@ -13,7 +13,7 @@ export default function ManagerNavbar({ logoutUser }) {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>FYV STONE</Navbar.Brand>
+          <Navbar.Brand className="me-auto">FYV STONE</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link>
               <Link to="/manager/home-page" className="home">
@@ -35,6 +35,8 @@ export default function ManagerNavbar({ logoutUser }) {
                 Orders
               </Link>
             </Nav.Link>
+          </Nav>
+          <Nav className="ml-auto">
             <Nav.Link>
               <Link onClick={logoutUser} className="login">
                 Logout
