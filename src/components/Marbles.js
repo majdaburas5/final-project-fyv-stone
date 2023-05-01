@@ -84,13 +84,15 @@ export default function Marbles({ updateCartArray, cartArray, isLoggedIn }) {
 
   return (
     <>
-      <TextField
-        id="outlined-controlled"
-        label="Search By Name"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
       <div className="filter-bar-container">
+        <div className="search-container">
+          <TextField
+            id="outlined-controlled"
+            label="Search By Name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         {filterBy.map((f, index) => {
           return (
             <FilterButton
