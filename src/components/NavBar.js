@@ -23,7 +23,7 @@ export default function NavBar({ userType, isLoggedIn, setIsLoggedIn }) {
       ) : isLoggedIn && userType != "manager" ? (
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand>FYV STONE</Navbar.Brand>
+            <Navbar.Brand className="me-auto">FYV STONE</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link>
                 <Link to="/" className="home">
@@ -60,6 +60,8 @@ export default function NavBar({ userType, isLoggedIn, setIsLoggedIn }) {
                   About
                 </Link>
               </Nav.Link>
+            </Nav>
+            <Nav className="justify-content-end">
               <Nav.Link>
                 <Link onClick={logoutUser} className="login">
                   Logout
@@ -71,7 +73,7 @@ export default function NavBar({ userType, isLoggedIn, setIsLoggedIn }) {
       ) : (
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand>FYV STONE</Navbar.Brand>
+            <Navbar.Brand className="me-auto">FYV STONE</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link>
                 <Link to="/" className="home">
@@ -98,6 +100,8 @@ export default function NavBar({ userType, isLoggedIn, setIsLoggedIn }) {
                   About
                 </Link>
               </Nav.Link>
+            </Nav>
+            <Nav className="justify-content-end">
               <Nav.Link>
                 <Link to="/login" className="login">
                   Login
