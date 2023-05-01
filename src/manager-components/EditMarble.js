@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import "../manager-css/EditMarble.css";
 import { updateMarble } from "../api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function EditMarble() {
   const [priceValue, setPriceValue] = useState("");
@@ -11,6 +13,7 @@ export default function EditMarble() {
 
   const handleSubmit = (id) => {
     updateMarble(id, priceValue, quantityValue);
+    toast.success("Update successfully");
   };
 
   return (

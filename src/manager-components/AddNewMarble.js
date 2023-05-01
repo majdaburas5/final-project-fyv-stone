@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { addMarble } from "../api";
 import "../manager-css/AddNewMarble.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AddNewMarble() {
   const [codeValue, setCodeValue] = useState("");
@@ -24,7 +26,8 @@ export default function AddNewMarble() {
       imgValue,
       colorValue
     );
-    alert("Added succssesful");
+    // alert("Added succssesful");
+    toast.success("Added succssesful");
   };
 
   return (
