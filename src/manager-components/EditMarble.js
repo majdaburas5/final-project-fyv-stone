@@ -27,7 +27,6 @@ export default function EditMarble() {
               value={priceValue}
               onChange={(event) => setPriceValue(event.target.value)}
               placeholder="Price"
-              required
             />
             <br />
             <Form.Control
@@ -35,7 +34,6 @@ export default function EditMarble() {
               value={quantityValue}
               onChange={(event) => setQuantityValue(event.target.value)}
               placeholder="Quantity"
-              required
             />
           </Form.Group>
           <div className="buttons">
