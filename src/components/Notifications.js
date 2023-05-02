@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getSpecificCustomerOrder } from "../api";
 import { getUserData } from "../api";
-
-
 export default function Notifications() {
-  
-
   const [userData, setUserData] = useState(null);
   const [specificCustomerOrder, setSpecificCustomerOrder] = useState([]);
 
@@ -15,7 +11,7 @@ export default function Notifications() {
         const data = await getUserData();
         setUserData(data);
       } catch (error) {
-        console.error('Error getting user data:', error);
+        console.error("Error getting user data:", error);
       }
     }
     fetchData();
@@ -28,7 +24,7 @@ export default function Notifications() {
         const data = await getSpecificCustomerOrder(customerId);
         setSpecificCustomerOrder(data);
       } catch (error) {
-        console.error('Error getting customer order:', error);
+        console.error("Error getting customer order:", error);
       }
     }
 
@@ -36,7 +32,6 @@ export default function Notifications() {
       fetchData();
     }
   }, [userData]);
-
 
   return (
     <div>

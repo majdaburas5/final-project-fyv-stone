@@ -26,7 +26,6 @@ export default function AddNewMarble() {
       imgValue,
       colorValue
     );
-    // alert("Added succssesful");
     toast.success("Added succssesful");
   };
 

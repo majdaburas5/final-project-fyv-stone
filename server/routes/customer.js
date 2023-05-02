@@ -45,8 +45,8 @@ const existUser = function (usersArray, email) {
 };
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.sendStatus(401);
@@ -83,7 +83,6 @@ function generateAccessToken(user) {
 }
 
 router.post("/login", (req, res) => {
-  // console.log();
   const { email, password } = req.body;
   const user = authenticateUser(email, password);
   user.then((user) => {
@@ -95,13 +94,12 @@ router.post("/login", (req, res) => {
   });
 });
 
-
-router.post('/logout', (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  res.status(200).send('Logged out successfully');
+router.post("/logout", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  res.status(200).send("Logged out successfully");
 });
 
-router.get('/user', authenticateToken, (req, res) => {
+router.get("/user", authenticateToken, (req, res) => {
   res.json({
     user: req.user,
   });
